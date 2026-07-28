@@ -319,7 +319,7 @@ export function CPRankingClient() {
             return fresh;
           }
           // 保留旧数据，但更新时间戳
-          return { ...a, lastUpdated: Date.now() };
+          return { ...a, lastUpdated: new Date().toISOString() };
         }),
       }));
 
@@ -340,8 +340,20 @@ export function CPRankingClient() {
       const updated = await Promise.all(cps.map(refreshOneCP));
       updated.sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
       setCps(updated);
-      // Save all updated CPs to database
-      await Promise.all(updated.map((cp) => saveToDatabase(cp, 'PUT')));
+      // Save all updated CPs to database with error handling
+      const saveResults = await Promise.all(
+        updated.map(async (cp) => {
+          const result = await saveToDatabase(cp, 'PUT');
+          if (!result.success) {
+            console.error(`Failed to save CP "${cp.displayName}":`, result.error);
+          }
+          return result;
+        })
+      );
+      const failedCount = saveResults.filter((r) => !r.success).length;
+      if (failedCount > 0) {
+        console.warn(`Refresh completed but ${failedCount} CP(s) failed to save to database`);
+      }
     } catch (err) {
       console.error('Refresh all failed:', err);
     } finally {
@@ -361,7 +373,10 @@ export function CPRankingClient() {
           .map((c) => (c.id === cpId ? updated : c))
           .sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
         setCps(updatedCps);
-        await saveToDatabase(updated, 'PUT');
+        const result = await saveToDatabase(updated, 'PUT');
+        if (!result.success) {
+          console.error(`Failed to save refreshed CP "${cp.displayName}":`, result.error);
+        }
       } catch (err) {
         console.error('Refresh single failed:', err);
       } finally {
