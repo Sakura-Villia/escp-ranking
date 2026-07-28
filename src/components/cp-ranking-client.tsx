@@ -296,7 +296,7 @@ export function CPRankingClient() {
       const query = tags.map(encodeURIComponent).join(',');
       
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 20000); // 20秒超时
       
       try {
         const res = await fetch(`/api/refresh?tags=${query}`, {
@@ -378,7 +378,7 @@ export function CPRankingClient() {
     [refreshTags]
   );
 
-  // 刷新全部（带60秒全局超时）
+  // 刷新全部（带90秒全局超时）
   const handleRefreshAll = useCallback(async () => {
     if (cps.length === 0) return;
     setLoading(true);
@@ -402,13 +402,25 @@ export function CPRankingClient() {
           const refreshed = await refreshOneCP(cps[i]);
           updated.push(refreshed);
           
-          // 立即保存到数据库
-          const saveResult = await saveToDatabase(refreshed, 'PUT');
-          if (saveResult.success) {
-            successCount++;
+          // 检查是否有新数据
+          const hasNewData = refreshed.groups.some((g) =>
+            g.aliases.some((a, idx) => {
+              const oldAlias = cps[i].groups.find((og) => og.id === g.id)?.aliases[idx];
+              return oldAlias && a.joinedNum !== oldAlias.joinedNum;
+            })
+          );
+          
+          // 只有有新数据时才保存
+          if (hasNewData) {
+            const saveResult = await saveToDatabase(refreshed, 'PUT');
+            if (saveResult.success) {
+              successCount++;
+            } else {
+              failedCount++;
+              console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+            }
           } else {
-            failedCount++;
-            console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+            successCount++; // 没有新数据也算成功（保留了旧数据）
           }
         } catch (err) {
           console.error(`Failed to refresh CP "${cps[i].displayName}":`, err);
@@ -416,9 +428,9 @@ export function CPRankingClient() {
           failedCount++;
         }
         
-        // CP 之间间隔 500ms，进一步降低并发压力
+        // CP 之间间隔 100ms，进一步降低并发压力
         if (i < cps.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 200));
+          await new Promise(resolve => setTimeout(resolve, 100));
         }
       }
       

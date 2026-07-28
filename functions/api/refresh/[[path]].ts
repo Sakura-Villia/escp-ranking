@@ -14,11 +14,22 @@ interface TagAlias {
   error?: string;
 }
 
+// 内存缓存：tag -> { result, timestamp }
+const tagCache = new Map<string, { result: TagAlias; timestamp: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 分钟缓存
+
 async function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
+  // 检查缓存
+  const cached = tagCache.get(tag);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    console.log(`[Cache] Hit for tag "${tag}"`);
+    return cached.result;
+  }
+
   try {
     const url = `https://www.lofter.com/tag/${encodeURIComponent(tag)}`;
     const res = await fetch(url, {
@@ -32,9 +43,9 @@ async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
 
     if (!res.ok) {
       // 如果是 5xx 错误且还有重试次数，等待后重试
-      if (res.status >= 500 && retryCount < 3) {
-        const backoff = Math.pow(2, retryCount) * 1000 + Math.random() * 500;
-        console.log(`[Refresh] Retry ${retryCount + 1}/3 for tag "${tag}" after ${Math.round(backoff)}ms (HTTP ${res.status})`);
+      if (res.status >= 500 && retryCount < 2) {
+        const backoff = (retryCount + 1) * 1000 + Math.random() * 500;
+        console.log(`[Refresh] Retry ${retryCount + 1}/2 for tag "${tag}" after ${Math.round(backoff)}ms (HTTP ${res.status})`);
         await delay(backoff);
         return fetchLofterTag(tag, retryCount + 1);
       }
@@ -55,17 +66,24 @@ async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
     const viewMatch = html.match(/"viewNum"\s*:\s*(\d+)/);
     const tagViewCount = viewMatch ? parseInt(viewMatch[1], 10) : 0;
 
-    return {
+    const result: TagAlias = {
       tag,
       joinedNum,
       tagViewCount,
       lastUpdated: new Date().toISOString(),
     };
+
+    // 只有成功获取到数据时才缓存
+    if (joinedNum > 0) {
+      tagCache.set(tag, { result, timestamp: Date.now() });
+    }
+
+    return result;
   } catch (error: any) {
     // 网络错误也重试
-    if (retryCount < 3) {
-      const backoff = Math.pow(2, retryCount) * 2000 + Math.random() * 1000;
-      console.log(`[Refresh] Retry ${retryCount + 1}/3 for tag "${tag}" after ${Math.round(backoff)}ms (network error)`);
+    if (retryCount < 2) {
+      const backoff = (retryCount + 1) * 1500 + Math.random() * 500;
+      console.log(`[Refresh] Retry ${retryCount + 1}/2 for tag "${tag}" after ${Math.round(backoff)}ms (network error)`);
       await delay(backoff);
       return fetchLofterTag(tag, retryCount + 1);
     }
@@ -96,16 +114,16 @@ export async function onRequestGet(context: any) {
 
     const tags = tagsParam.split(',').map(decodeURIComponent);
     
-    // 串行请求，每个请求间隔 1-2 秒（随机），避免触发 LOFTER 速率限制
+    // 串行请求，每个请求间隔 100-200ms（随机），避免触发 LOFTER 速率限制
     const results: TagAlias[] = [];
     for (let i = 0; i < tags.length; i++) {
       const tag = tags[i];
       const result = await fetchLofterTag(tag);
       results.push(result);
       
-      // 请求间隔 300-500ms（随机），最后一个标签不需要延迟
+      // 请求间隔 100-200ms（随机），最后一个标签不需要延迟
       if (i < tags.length - 1) {
-        const randomDelay = 300 + Math.random() * 200;
+        const randomDelay = 100 + Math.random() * 100;
         await delay(randomDelay);
       }
     }
