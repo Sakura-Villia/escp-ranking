@@ -1,0 +1,771 @@
+2026-07-28T10:37:09.062755Z	Cloning repository...
+2026-07-28T10:37:10.232547Z	From https://github.com/Sakura-Villia/escp-ranking
+2026-07-28T10:37:10.232829Z	 * branch            062ba54a3f3dffed2ab1d139d90c2c041279a671 -> FETCH_HEAD
+2026-07-28T10:37:10.232918Z	
+2026-07-28T10:37:10.298436Z	HEAD is now at 062ba54 fix: 移除数据库连接检查，简化代码
+2026-07-28T10:37:10.298788Z	
+2026-07-28T10:37:10.351302Z	
+2026-07-28T10:37:10.351619Z	Using v2 root directory strategy
+2026-07-28T10:37:10.364683Z	Success: Finished cloning repository files
+2026-07-28T10:37:12.048168Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-07-28T10:37:12.048504Z	
+2026-07-28T10:37:12.048961Z	Found wrangler.toml file. Reading build configuration...
+2026-07-28T10:37:12.200271Z	A Wrangler configuration file was found but it does not appear to be valid. Did you mean to use wrangler.toml to configure Pages? If so, then make sure the file is valid and contains the `pages_build_output_dir` property. Skipping file and continuing.
+2026-07-28T10:37:12.348504Z	Detected the following tools from environment: pnpm@9.0.0, nodejs@22.16.0
+2026-07-28T10:37:12.773282Z	Preparing pnpm@9.0.0 for immediate activation...
+2026-07-28T10:37:14.621852Z	Installing project dependencies: pnpm install
+2026-07-28T10:37:32.615813Z	.../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+2026-07-28T10:37:32.619426Z	.../node_modules/workerd postinstall$ node install.js
+2026-07-28T10:37:32.645405Z	.../node_modules/workerd postinstall$ node install.js
+2026-07-28T10:37:32.645841Z	.../esbuild@0.15.18/node_modules/esbuild postinstall$ node install.js
+2026-07-28T10:37:32.668203Z	.../esbuild@0.28.1/node_modules/esbuild postinstall$ node install.js
+2026-07-28T10:37:32.740614Z	.../sharp@0.34.5/node_modules/sharp install: Done
+2026-07-28T10:37:32.828143Z	.../esbuild@0.27.7/node_modules/esbuild postinstall$ node install.js
+2026-07-28T10:37:33.704428Z	.../node_modules/workerd postinstall: Done
+2026-07-28T10:37:35.180934Z	.../node_modules/unrs-resolver postinstall$ node postinstall.js
+2026-07-28T10:37:35.378086Z	.../node_modules/unrs-resolver postinstall: Done
+2026-07-28T10:37:35.382129Z	.../esbuild@0.28.1/node_modules/esbuild postinstall: Done
+2026-07-28T10:37:35.383474Z	.../esbuild@0.15.18/node_modules/esbuild postinstall: Done
+2026-07-28T10:37:35.388562Z	.../node_modules/workerd postinstall: Done
+2026-07-28T10:37:35.391622Z	.../esbuild@0.27.7/node_modules/esbuild postinstall: Done
+2026-07-28T10:37:36.171884Z	
+2026-07-28T10:37:36.172303Z	dependencies:
+2026-07-28T10:37:36.172425Z	+ @aws-sdk/client-s3 3.1095.0
+2026-07-28T10:37:36.172494Z	+ @aws-sdk/lib-storage 3.1095.0
+2026-07-28T10:37:36.172629Z	+ @hookform/resolvers 5.5.7
+2026-07-28T10:37:36.172807Z	+ @radix-ui/react-accordion 1.2.20
+2026-07-28T10:37:36.173008Z	+ @radix-ui/react-alert-dialog 1.1.23
+2026-07-28T10:37:36.17318Z	+ @radix-ui/react-aspect-ratio 1.1.15
+2026-07-28T10:37:36.173285Z	+ @radix-ui/react-avatar 1.2.6
+2026-07-28T10:37:36.173438Z	+ @radix-ui/react-checkbox 1.3.11
+2026-07-28T10:37:36.173516Z	+ @radix-ui/react-collapsible 1.1.20
+2026-07-28T10:37:36.173622Z	+ @radix-ui/react-context-menu 2.3.7
+2026-07-28T10:37:36.17377Z	+ @radix-ui/react-dialog 1.1.23
+2026-07-28T10:37:36.17396Z	+ @radix-ui/react-dropdown-menu 2.1.24
+2026-07-28T10:37:36.174032Z	+ @radix-ui/react-hover-card 1.1.23
+2026-07-28T10:37:36.174087Z	+ @radix-ui/react-label 2.1.15
+2026-07-28T10:37:36.174146Z	+ @radix-ui/react-menubar 1.1.24
+2026-07-28T10:37:36.17423Z	+ @radix-ui/react-navigation-menu 1.2.22
+2026-07-28T10:37:36.174274Z	+ @radix-ui/react-popover 1.1.23
+2026-07-28T10:37:36.174327Z	+ @radix-ui/react-progress 1.1.16
+2026-07-28T10:37:36.174395Z	+ @radix-ui/react-radio-group 1.4.7
+2026-07-28T10:37:36.174462Z	+ @radix-ui/react-scroll-area 1.2.18
+2026-07-28T10:37:36.174514Z	+ @radix-ui/react-select 2.3.7
+2026-07-28T10:37:36.174554Z	+ @radix-ui/react-separator 1.1.15
+2026-07-28T10:37:36.174595Z	+ @radix-ui/react-slider 1.4.7
+2026-07-28T10:37:36.174637Z	+ @radix-ui/react-slot 1.3.3
+2026-07-28T10:37:36.174684Z	+ @radix-ui/react-switch 1.3.7
+2026-07-28T10:37:36.174724Z	+ @radix-ui/react-tabs 1.1.21
+2026-07-28T10:37:36.174805Z	+ @radix-ui/react-toggle 1.1.18
+2026-07-28T10:37:36.174893Z	+ @radix-ui/react-toggle-group 1.1.19
+2026-07-28T10:37:36.175155Z	+ @radix-ui/react-tooltip 1.2.16
+2026-07-28T10:37:36.17525Z	+ @supabase/supabase-js 2.95.3
+2026-07-28T10:37:36.175292Z	+ class-variance-authority 0.7.1
+2026-07-28T10:37:36.175419Z	+ clsx 2.1.1
+2026-07-28T10:37:36.175617Z	+ cmdk 1.1.1
+2026-07-28T10:37:36.175712Z	+ date-fns 4.4.0
+2026-07-28T10:37:36.17582Z	+ dotenv 17.4.2
+2026-07-28T10:37:36.175906Z	+ drizzle-orm 0.45.2
+2026-07-28T10:37:36.175954Z	+ embla-carousel-react 8.6.0
+2026-07-28T10:37:36.176006Z	+ input-otp 1.4.2
+2026-07-28T10:37:36.176256Z	+ lucide-react 0.468.0
+2026-07-28T10:37:36.176354Z	+ next 16.1.1
+2026-07-28T10:37:36.176446Z	+ next-themes 0.4.6
+2026-07-28T10:37:36.176533Z	+ react 19.2.3
+2026-07-28T10:37:36.176611Z	+ react-day-picker 9.14.0
+2026-07-28T10:37:36.176714Z	+ react-dom 19.2.3
+2026-07-28T10:37:36.17681Z	+ react-hook-form 7.83.0
+2026-07-28T10:37:36.177003Z	+ react-resizable-panels 4.12.2
+2026-07-28T10:37:36.177252Z	+ recharts 2.15.4
+2026-07-28T10:37:36.177307Z	+ sonner 2.0.7
+2026-07-28T10:37:36.177363Z	+ tailwind-merge 2.6.1
+2026-07-28T10:37:36.177415Z	+ tw-animate-css 1.4.0
+2026-07-28T10:37:36.177454Z	+ vaul 1.1.2
+2026-07-28T10:37:36.177503Z	+ zod 4.4.3
+2026-07-28T10:37:36.177553Z	
+2026-07-28T10:37:36.177603Z	devDependencies:
+2026-07-28T10:37:36.177654Z	+ @cloudflare/next-on-pages 1.13.16
+2026-07-28T10:37:36.1777Z	+ @cloudflare/workers-types 4.20240208.0
+2026-07-28T10:37:36.177744Z	+ @react-dev-inspector/babel-plugin 2.0.1
+2026-07-28T10:37:36.177788Z	+ @react-dev-inspector/middleware 2.0.1
+2026-07-28T10:37:36.177824Z	+ @tailwindcss/postcss 4.3.3
+2026-07-28T10:37:36.177867Z	+ @types/node 20.19.43
+2026-07-28T10:37:36.177916Z	+ @types/pg 8.20.0
+2026-07-28T10:37:36.177954Z	+ @types/react 19.2.17
+2026-07-28T10:37:36.17799Z	+ @types/react-dom 19.2.3
+2026-07-28T10:37:36.178025Z	+ eslint 9.39.5
+2026-07-28T10:37:36.178124Z	+ eslint-config-next 16.1.1
+2026-07-28T10:37:36.178212Z	+ react-dev-inspector 2.0.1
+2026-07-28T10:37:36.17827Z	+ shadcn 4.15.0
+2026-07-28T10:37:36.178322Z	+ stylelint 16.26.1
+2026-07-28T10:37:36.178398Z	+ stylelint-config-standard 38.0.0
+2026-07-28T10:37:36.178475Z	+ tailwindcss 4.3.3
+2026-07-28T10:37:36.17853Z	+ tsup 8.5.1
+2026-07-28T10:37:36.178574Z	+ tsx 4.23.1
+2026-07-28T10:37:36.178636Z	+ typescript 5.9.3
+2026-07-28T10:37:36.178678Z	
+2026-07-28T10:37:36.217207Z	Done in 21.4s
+2026-07-28T10:37:36.331624Z	Executing user command: pnpm install && pnpm build && npx @cloudflare/next-on-pages
+2026-07-28T10:37:40.984534Z	
+2026-07-28T10:37:41.008812Z	Done in 4.5s
+2026-07-28T10:37:41.576536Z	
+2026-07-28T10:37:41.576806Z	> projects@0.1.0 build /opt/buildhome/repo
+2026-07-28T10:37:41.576884Z	> bash ./scripts/build.sh
+2026-07-28T10:37:41.576936Z	
+2026-07-28T10:37:41.583171Z	Installing dependencies...
+2026-07-28T10:37:45.876715Z	
+2026-07-28T10:37:45.903972Z	Done in 4.2s
+2026-07-28T10:37:45.989982Z	Building the Next.js project...
+2026-07-28T10:37:47.483349Z	⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-07-28T10:37:47.488861Z	Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-07-28T10:37:47.489171Z	This information is used to shape Next.js' roadmap and prioritize features.
+2026-07-28T10:37:47.489284Z	You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-07-28T10:37:47.48935Z	https://nextjs.org/telemetry
+2026-07-28T10:37:47.489413Z	
+2026-07-28T10:37:47.502526Z	▲ Next.js 16.1.1 (Turbopack)
+2026-07-28T10:37:47.502746Z	
+2026-07-28T10:37:47.593768Z	  Creating an optimized production build ...
+2026-07-28T10:37:48.871402Z	  Using external babel configuration from /opt/buildhome/repo/.babelrc
+2026-07-28T10:37:53.136012Z	✓ Compiled successfully in 4.9s
+2026-07-28T10:37:53.14811Z	  Running TypeScript ...
+2026-07-28T10:37:59.628198Z	  Collecting page data using 3 workers ...
+2026-07-28T10:38:00.061876Z	  Generating static pages using 3 workers (0/6) ...
+2026-07-28T10:38:00.076674Z	  Generating static pages using 3 workers (1/6) 
+2026-07-28T10:38:00.077232Z	  Generating static pages using 3 workers (2/6) 
+2026-07-28T10:38:00.189802Z	  Generating static pages using 3 workers (4/6) 
+2026-07-28T10:38:00.191666Z	✓ Generating static pages using 3 workers (6/6) in 129.9ms
+2026-07-28T10:38:00.197679Z	  Finalizing page optimization ...
+2026-07-28T10:38:00.207883Z	
+2026-07-28T10:38:00.209835Z	Route (app)
+2026-07-28T10:38:00.209984Z	┌ ○ /
+2026-07-28T10:38:00.210063Z	├ ○ /_not-found
+2026-07-28T10:38:00.210129Z	├ ƒ /api/cp
+2026-07-28T10:38:00.210201Z	├ ƒ /api/cp/[id]
+2026-07-28T10:38:00.210269Z	└ ƒ /api/refresh
+2026-07-28T10:38:00.210328Z	
+2026-07-28T10:38:00.210365Z	
+2026-07-28T10:38:00.210398Z	○  (Static)   prerendered as static content
+2026-07-28T10:38:00.210491Z	ƒ  (Dynamic)  server-rendered on demand
+2026-07-28T10:38:00.210544Z	
+2026-07-28T10:38:00.313128Z	Build completed successfully!
+2026-07-28T10:38:04.19113Z	⚡️ @cloudflare/next-on-pages CLI v.1.13.16
+2026-07-28T10:38:05.638184Z	⚡️ Detected Package Manager: npm (10.9.2)
+2026-07-28T10:38:05.638797Z	⚡️ Preparing project...
+2026-07-28T10:38:05.639252Z	
+2026-07-28T10:38:05.639662Z	⚡️ The project is set up for pnpm but it is currently being run via npm this might lead to build errors, please be sure to use the same package manager your project uses when running @cloudflare/next-on-pages
+2026-07-28T10:38:05.639991Z	
+2026-07-28T10:38:05.642246Z	⚡️ Project is ready
+2026-07-28T10:38:05.642575Z	⚡️ Building project...
+2026-07-28T10:38:33.405956Z	▲  Vercel CLI 58.0.0 (Node.js 22.16.0)
+2026-07-28T10:38:33.413885Z	▲  > NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+2026-07-28T10:38:33.414039Z	▲  > This information is used to shape the CLI roadmap and prioritize features.
+2026-07-28T10:38:33.414089Z	▲  > You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+2026-07-28T10:38:33.414135Z	▲  > https://vercel.com/docs/cli/about-telemetry
+2026-07-28T10:38:33.591653Z	▲  WARNING! Build not running on Vercel. System environment variables will not be available.
+2026-07-28T10:38:33.785528Z	▲  Detected `pnpm-lock.yaml` 9 which may be generated by pnpm@9.x or pnpm@10.x
+2026-07-28T10:38:33.786032Z	▲  Using pnpm@9.x based on project creation date
+2026-07-28T10:38:33.786123Z	▲  To use pnpm@10.x, manually opt in using corepack (https://vercel.com/docs/deployments/configure-a-build#corepack)
+2026-07-28T10:38:33.786416Z	▲  WARNING: You should not upload the `.next` directory.
+2026-07-28T10:38:33.788757Z	▲  Running "install" command: `npx pnpm install`...
+2026-07-28T10:38:39.037392Z	▲  
+2026-07-28T10:38:39.061874Z	▲  Done in 4.8s
+2026-07-28T10:38:39.157501Z	▲  Detected Next.js version: 16.1.1
+2026-07-28T10:38:39.158957Z	▲  Running "npx next build"
+2026-07-28T10:38:40.462695Z	▲  ▲ Next.js 16.1.1 (Turbopack)
+2026-07-28T10:38:40.462978Z	▲  
+2026-07-28T10:38:40.53194Z	▲  Creating an optimized production build ...
+2026-07-28T10:38:41.75501Z	▲  Using external babel configuration from /opt/buildhome/repo/.babelrc
+2026-07-28T10:38:45.024165Z	▲  ✓ Compiled successfully in 3.9s
+2026-07-28T10:38:45.033422Z	▲  Running TypeScript ...
+2026-07-28T10:38:51.373546Z	▲  Collecting page data using 3 workers ...
+2026-07-28T10:38:51.799967Z	▲  Generating static pages using 3 workers (0/6) ...
+2026-07-28T10:38:51.827819Z	▲  Generating static pages using 3 workers (1/6)
+2026-07-28T10:38:51.828131Z	▲  Generating static pages using 3 workers (2/6)
+2026-07-28T10:38:51.956618Z	▲  Generating static pages using 3 workers (4/6)
+2026-07-28T10:38:51.959485Z	▲  ✓ Generating static pages using 3 workers (6/6) in 159.6ms
+2026-07-28T10:38:51.967432Z	▲  Finalizing page optimization ...
+2026-07-28T10:38:51.982759Z	▲  
+2026-07-28T10:38:51.983868Z	▲  Route (app)
+2026-07-28T10:38:51.984213Z	▲  ┌ ○ /
+2026-07-28T10:38:51.984357Z	▲  ├ ○ /_not-found
+2026-07-28T10:38:51.984451Z	▲  ├ ƒ /api/cp
+2026-07-28T10:38:51.984535Z	▲  ├ ƒ /api/cp/[id]
+2026-07-28T10:38:51.984623Z	▲  └ ƒ /api/refresh
+2026-07-28T10:38:51.984837Z	▲  ○  (Static)   prerendered as static content
+2026-07-28T10:38:51.984935Z	▲  ƒ  (Dynamic)  server-rendered on demand
+2026-07-28T10:38:52.213526Z	▲  Traced Next.js server files in: 56.039ms
+2026-07-28T10:38:52.296342Z	▲  Created all serverless functions in: 82.359ms
+2026-07-28T10:38:52.306822Z	▲  Collected static files (public/, static/, .next/static): 2.751ms
+2026-07-28T10:38:52.374752Z	▲  Build Completed in .vercel/output [19s]
+2026-07-28T10:38:52.56818Z	⚡️ Completed `npx vercel build`.
+2026-07-28T10:38:56.694555Z	EXIT WHEN NOT EXPECTED
+2026-07-28T10:38:56.694813Z	
+2026-07-28T10:38:56.694896Z	SHELLAC COMMAND FAILED!
+2026-07-28T10:38:56.694936Z	Executing: npm list --depth=0 --json in /opt/buildhome/repo
+2026-07-28T10:38:56.694967Z	
+2026-07-28T10:38:56.694998Z	STDOUT:
+2026-07-28T10:38:56.695031Z	
+2026-07-28T10:38:56.695084Z	{
+2026-07-28T10:38:56.695122Z	  "version": "0.1.0",
+2026-07-28T10:38:56.695153Z	  "name": "projects",
+2026-07-28T10:38:56.695209Z	  "problems": [
+2026-07-28T10:38:56.695246Z	    "extraneous: @eslint-community/eslint-utils@4.10.1 /opt/buildhome/repo/node_modules/@eslint-community/eslint-utils",
+2026-07-28T10:38:56.695286Z	    "extraneous: @eslint-community/regexpp@4.12.2 /opt/buildhome/repo/node_modules/@eslint-community/regexpp",
+2026-07-28T10:38:56.695316Z	    "extraneous: @eslint/config-array@0.21.2 /opt/buildhome/repo/node_modules/@eslint/config-array",
+2026-07-28T10:38:56.695346Z	    "extraneous: @eslint/config-helpers@0.4.2 /opt/buildhome/repo/node_modules/@eslint/config-helpers",
+2026-07-28T10:38:56.695374Z	    "extraneous: @eslint/core@0.17.0 /opt/buildhome/repo/node_modules/@eslint/core",
+2026-07-28T10:38:56.695409Z	    "extraneous: @eslint/eslintrc@3.3.6 /opt/buildhome/repo/node_modules/@eslint/eslintrc",
+2026-07-28T10:38:56.695439Z	    "extraneous: @eslint/object-schema@2.1.7 /opt/buildhome/repo/node_modules/@eslint/object-schema",
+2026-07-28T10:38:56.695468Z	    "extraneous: @eslint/plugin-kit@0.4.1 /opt/buildhome/repo/node_modules/@eslint/plugin-kit",
+2026-07-28T10:38:56.69551Z	    "extraneous: @next/eslint-plugin-next@16.1.1 /opt/buildhome/repo/node_modules/@next/eslint-plugin-next",
+2026-07-28T10:38:56.69555Z	    "extraneous: @typescript-eslint/project-service@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/project-service",
+2026-07-28T10:38:56.695589Z	    "extraneous: @typescript-eslint/scope-manager@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/scope-manager",
+2026-07-28T10:38:56.695626Z	    "extraneous: @typescript-eslint/tsconfig-utils@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/tsconfig-utils",
+2026-07-28T10:38:56.695664Z	    "extraneous: @typescript-eslint/visitor-keys@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/visitor-keys",
+2026-07-28T10:38:56.695696Z	    "extraneous: eslint-import-resolver-node@0.3.10 /opt/buildhome/repo/node_modules/eslint-import-resolver-node",
+2026-07-28T10:38:56.695741Z	    "extraneous: eslint-module-utils@2.14.0 /opt/buildhome/repo/node_modules/eslint-module-utils",
+2026-07-28T10:38:56.695776Z	    "invalid: shadcn@4.15.0 /opt/buildhome/repo/node_modules/shadcn"
+2026-07-28T10:38:56.69581Z	  ],
+2026-07-28T10:38:56.695851Z	  "dependencies": {
+2026-07-28T10:38:56.69588Z	    "@aws-sdk/client-s3": {
+2026-07-28T10:38:56.695914Z	      "version": "3.1095.0",
+2026-07-28T10:38:56.695943Z	      "resolved": "file:../.pnpm/@aws-sdk+client-s3@3.1095.0/node_modules/@aws-sdk/client-s3",
+2026-07-28T10:38:56.695973Z	      "overridden": false
+2026-07-28T10:38:56.696007Z	    },
+2026-07-28T10:38:56.696483Z	    "@aws-sdk/lib-storage": {
+2026-07-28T10:38:56.696656Z	      "version": "3.1095.0",
+2026-07-28T10:38:56.697308Z	      "resolved": "file:../.pnpm/@aws-sdk+lib-storage@3.1095.0_@aws-sdk+client-s3@3.1095.0/node_modules/@aws-sdk/lib-storage",
+2026-07-28T10:38:56.697566Z	      "overridden": false
+2026-07-28T10:38:56.697669Z	    },
+2026-07-28T10:38:56.697725Z	    "@cloudflare/next-on-pages": {
+2026-07-28T10:38:56.697775Z	      "version": "1.13.16",
+2026-07-28T10:38:56.697821Z	      "resolved": "file:../.pnpm/@cloudflare+next-on-pages@1.13.16_@cloudflare+workers-types@4.20240208.0_next@16.1.1_@babel+c_vqxzlpvkk5uds6zdme47c3h7dy/node_modules/@cloudflare/next-on-pages",
+2026-07-28T10:38:56.697864Z	      "overridden": false
+2026-07-28T10:38:56.697908Z	    },
+2026-07-28T10:38:56.697952Z	    "@cloudflare/workers-types": {
+2026-07-28T10:38:56.697988Z	      "version": "4.20240208.0",
+2026-07-28T10:38:56.698019Z	      "resolved": "file:../.pnpm/@cloudflare+workers-types@4.20240208.0/node_modules/@cloudflare/workers-types",
+2026-07-28T10:38:56.698049Z	      "overridden": false
+2026-07-28T10:38:56.698079Z	    },
+2026-07-28T10:38:56.698114Z	    "@eslint-community/eslint-utils": {
+2026-07-28T10:38:56.698161Z	      "version": "4.10.1",
+2026-07-28T10:38:56.698219Z	      "resolved": "file:../.pnpm/@eslint-community+eslint-utils@4.10.1_eslint@9.39.5_jiti@2.7.0_/node_modules/@eslint-community/eslint-utils",
+2026-07-28T10:38:56.698263Z	      "overridden": false,
+2026-07-28T10:38:56.698295Z	      "extraneous": true,
+2026-07-28T10:38:56.698325Z	      "problems": [
+2026-07-28T10:38:56.698358Z	        "extraneous: @eslint-community/eslint-utils@4.10.1 /opt/buildhome/repo/node_modules/@eslint-community/eslint-utils"
+2026-07-28T10:38:56.698386Z	      ]
+2026-07-28T10:38:56.698413Z	    },
+2026-07-28T10:38:56.698442Z	    "@eslint-community/regexpp": {
+2026-07-28T10:38:56.698486Z	      "version": "4.12.2",
+2026-07-28T10:38:56.698541Z	      "resolved": "file:../.pnpm/@eslint-community+regexpp@4.12.2/node_modules/@eslint-community/regexpp",
+2026-07-28T10:38:56.698575Z	      "overridden": false,
+2026-07-28T10:38:56.69861Z	      "extraneous": true,
+2026-07-28T10:38:56.698662Z	      "problems": [
+2026-07-28T10:38:56.698699Z	        "extraneous: @eslint-community/regexpp@4.12.2 /opt/buildhome/repo/node_modules/@eslint-community/regexpp"
+2026-07-28T10:38:56.698736Z	      ]
+2026-07-28T10:38:56.698789Z	    },
+2026-07-28T10:38:56.698823Z	    "@eslint/config-array": {
+2026-07-28T10:38:56.698853Z	      "version": "0.21.2",
+2026-07-28T10:38:56.698887Z	      "resolved": "file:../.pnpm/@eslint+config-array@0.21.2/node_modules/@eslint/config-array",
+2026-07-28T10:38:56.69895Z	      "overridden": false,
+2026-07-28T10:38:56.698989Z	      "extraneous": true,
+2026-07-28T10:38:56.699019Z	      "problems": [
+2026-07-28T10:38:56.69905Z	        "extraneous: @eslint/config-array@0.21.2 /opt/buildhome/repo/node_modules/@eslint/config-array"
+2026-07-28T10:38:56.699079Z	      ]
+2026-07-28T10:38:56.699109Z	    },
+2026-07-28T10:38:56.699145Z	    "@eslint/config-helpers": {
+2026-07-28T10:38:56.699189Z	      "version": "0.4.2",
+2026-07-28T10:38:56.699225Z	      "resolved": "file:../.pnpm/@eslint+config-helpers@0.4.2/node_modules/@eslint/config-helpers",
+2026-07-28T10:38:56.69927Z	      "overridden": false,
+2026-07-28T10:38:56.699319Z	      "extraneous": true,
+2026-07-28T10:38:56.699368Z	      "problems": [
+2026-07-28T10:38:56.699449Z	        "extraneous: @eslint/config-helpers@0.4.2 /opt/buildhome/repo/node_modules/@eslint/config-helpers"
+2026-07-28T10:38:56.6995Z	      ]
+2026-07-28T10:38:56.699547Z	    },
+2026-07-28T10:38:56.699623Z	    "@eslint/core": {
+2026-07-28T10:38:56.699672Z	      "version": "0.17.0",
+2026-07-28T10:38:56.699709Z	      "resolved": "file:../.pnpm/@eslint+core@0.17.0/node_modules/@eslint/core",
+2026-07-28T10:38:56.699742Z	      "overridden": false,
+2026-07-28T10:38:56.699781Z	      "extraneous": true,
+2026-07-28T10:38:56.699812Z	      "problems": [
+2026-07-28T10:38:56.699852Z	        "extraneous: @eslint/core@0.17.0 /opt/buildhome/repo/node_modules/@eslint/core"
+2026-07-28T10:38:56.699883Z	      ]
+2026-07-28T10:38:56.699921Z	    },
+2026-07-28T10:38:56.699954Z	    "@eslint/eslintrc": {
+2026-07-28T10:38:56.699992Z	      "version": "3.3.6",
+2026-07-28T10:38:56.7001Z	      "resolved": "file:../.pnpm/@eslint+eslintrc@3.3.6/node_modules/@eslint/eslintrc",
+2026-07-28T10:38:56.700243Z	      "overridden": false,
+2026-07-28T10:38:56.70039Z	      "extraneous": true,
+2026-07-28T10:38:56.700444Z	      "problems": [
+2026-07-28T10:38:56.700501Z	        "extraneous: @eslint/eslintrc@3.3.6 /opt/buildhome/repo/node_modules/@eslint/eslintrc"
+2026-07-28T10:38:56.700549Z	      ]
+2026-07-28T10:38:56.700722Z	    },
+2026-07-28T10:38:56.70134Z	    "@eslint/object-schema": {
+2026-07-28T10:38:56.701932Z	      "version": "2.1.7",
+2026-07-28T10:38:56.702007Z	      "resolved": "file:../.pnpm/@eslint+object-schema@2.1.7/node_modules/@eslint/object-schema",
+2026-07-28T10:38:56.702045Z	      "overridden": false,
+2026-07-28T10:38:56.702073Z	      "extraneous": true,
+2026-07-28T10:38:56.7021Z	      "problems": [
+2026-07-28T10:38:56.702127Z	        "extraneous: @eslint/object-schema@2.1.7 /opt/buildhome/repo/node_modules/@eslint/object-schema"
+2026-07-28T10:38:56.70216Z	      ]
+2026-07-28T10:38:56.702207Z	    },
+2026-07-28T10:38:56.702259Z	    "@eslint/plugin-kit": {
+2026-07-28T10:38:56.702299Z	      "version": "0.4.1",
+2026-07-28T10:38:56.702334Z	      "resolved": "file:../.pnpm/@eslint+plugin-kit@0.4.1/node_modules/@eslint/plugin-kit",
+2026-07-28T10:38:56.702363Z	      "overridden": false,
+2026-07-28T10:38:56.702391Z	      "extraneous": true,
+2026-07-28T10:38:56.702424Z	      "problems": [
+2026-07-28T10:38:56.702452Z	        "extraneous: @eslint/plugin-kit@0.4.1 /opt/buildhome/repo/node_modules/@eslint/plugin-kit"
+2026-07-28T10:38:56.702479Z	      ]
+2026-07-28T10:38:56.702511Z	    },
+2026-07-28T10:38:56.702554Z	    "@hookform/resolvers": {
+2026-07-28T10:38:56.702588Z	      "version": "5.5.7",
+2026-07-28T10:38:56.702617Z	      "resolved": "file:../.pnpm/@hookform+resolvers@5.5.7_ajv-formats@2.1.1_ajv@8.20.0__ajv@8.20.0_react-hook-form@7.83.0_react@19.2.3__zod@4.4.3/node_modules/@hookform/resolvers",
+2026-07-28T10:38:56.702908Z	      "overridden": false
+2026-07-28T10:38:56.703249Z	    },
+2026-07-28T10:38:56.703419Z	    "@next/eslint-plugin-next": {
+2026-07-28T10:38:56.703799Z	      "version": "16.1.1",
+2026-07-28T10:38:56.703922Z	      "resolved": "file:../.pnpm/@next+eslint-plugin-next@16.1.1/node_modules/@next/eslint-plugin-next",
+2026-07-28T10:38:56.703994Z	      "overridden": false,
+2026-07-28T10:38:56.704281Z	      "extraneous": true,
+2026-07-28T10:38:56.704357Z	      "problems": [
+2026-07-28T10:38:56.704429Z	        "extraneous: @next/eslint-plugin-next@16.1.1 /opt/buildhome/repo/node_modules/@next/eslint-plugin-next"
+2026-07-28T10:38:56.704507Z	      ]
+2026-07-28T10:38:56.704549Z	    },
+2026-07-28T10:38:56.704579Z	    "@radix-ui/react-accordion": {
+2026-07-28T10:38:56.704606Z	      "version": "1.2.20",
+2026-07-28T10:38:56.704634Z	      "resolved": "file:../.pnpm/@radix-ui+react-accordion@1.2.20_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@1_2wwt7cl5e3bzh2fd575uh2uus4/node_modules/@radix-ui/react-accordion",
+2026-07-28T10:38:56.704664Z	      "overridden": false
+2026-07-28T10:38:56.704697Z	    },
+2026-07-28T10:38:56.704741Z	    "@radix-ui/react-alert-dialog": {
+2026-07-28T10:38:56.704782Z	      "version": "1.1.23",
+2026-07-28T10:38:56.704826Z	      "resolved": "file:../.pnpm/@radix-ui+react-alert-dialog@1.1.23_@types+react-dom@19.2.3_@types+react@19.2.17__@types+reac_vux7ffmskfz2suz7pkrelp6yky/node_modules/@radix-ui/react-alert-dialog",
+2026-07-28T10:38:56.70488Z	      "overridden": false
+2026-07-28T10:38:56.704935Z	    },
+2026-07-28T10:38:56.70498Z	    "@radix-ui/react-aspect-ratio": {
+2026-07-28T10:38:56.705008Z	      "version": "1.1.15",
+2026-07-28T10:38:56.705036Z	      "resolved": "file:../.pnpm/@radix-ui+react-aspect-ratio@1.1.15_@types+react-dom@19.2.3_@types+react@19.2.17__@types+reac_zce4b5zo5qlujyuirdqqwfpcuu/node_modules/@radix-ui/react-aspect-ratio",
+2026-07-28T10:38:56.705068Z	      "overridden": false
+2026-07-28T10:38:56.7051Z	    },
+2026-07-28T10:38:56.705136Z	    "@radix-ui/react-avatar": {
+2026-07-28T10:38:56.705191Z	      "version": "1.2.6",
+2026-07-28T10:38:56.705235Z	      "resolved": "file:../.pnpm/@radix-ui+react-avatar@1.2.6_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2._l5c35vpz456dbjj2synygnzp74/node_modules/@radix-ui/react-avatar",
+2026-07-28T10:38:56.705288Z	      "overridden": false
+2026-07-28T10:38:56.70532Z	    },
+2026-07-28T10:38:56.705366Z	    "@radix-ui/react-checkbox": {
+2026-07-28T10:38:56.705416Z	      "version": "1.3.11",
+2026-07-28T10:38:56.705451Z	      "resolved": "file:../.pnpm/@radix-ui+react-checkbox@1.3.11_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19_pvqbtgn446ujvd353vcqawtsxe/node_modules/@radix-ui/react-checkbox",
+2026-07-28T10:38:56.705478Z	      "overridden": false
+2026-07-28T10:38:56.705868Z	    },
+2026-07-28T10:38:56.706086Z	    "@radix-ui/react-collapsible": {
+2026-07-28T10:38:56.706435Z	      "version": "1.1.20",
+2026-07-28T10:38:56.706604Z	      "resolved": "file:../.pnpm/@radix-ui+react-collapsible@1.1.20_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react_j6dwmov2ecy54nxbubkw7scxum/node_modules/@radix-ui/react-collapsible",
+2026-07-28T10:38:56.706769Z	      "overridden": false
+2026-07-28T10:38:56.706966Z	    },
+2026-07-28T10:38:56.707029Z	    "@radix-ui/react-context-menu": {
+2026-07-28T10:38:56.707069Z	      "version": "2.3.7",
+2026-07-28T10:38:56.707216Z	      "resolved": "file:../.pnpm/@radix-ui+react-context-menu@2.3.7_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react_q7ofngtzm7p2qad75vr5wlkudq/node_modules/@radix-ui/react-context-menu",
+2026-07-28T10:38:56.707444Z	      "overridden": false
+2026-07-28T10:38:56.707499Z	    },
+2026-07-28T10:38:56.707625Z	    "@radix-ui/react-dialog": {
+2026-07-28T10:38:56.707862Z	      "version": "1.1.23",
+2026-07-28T10:38:56.707945Z	      "resolved": "file:../.pnpm/@radix-ui+react-dialog@1.1.23_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2_6p7jrmfvsjfj46dfg5rzk3lasq/node_modules/@radix-ui/react-dialog",
+2026-07-28T10:38:56.707984Z	      "overridden": false
+2026-07-28T10:38:56.708021Z	    },
+2026-07-28T10:38:56.70818Z	    "@radix-ui/react-dropdown-menu": {
+2026-07-28T10:38:56.708277Z	      "version": "2.1.24",
+2026-07-28T10:38:56.708317Z	      "resolved": "file:../.pnpm/@radix-ui+react-dropdown-menu@2.1.24_@types+react-dom@19.2.3_@types+react@19.2.17__@types+rea_lp6snpgpi77xvigufkzwtgfzo4/node_modules/@radix-ui/react-dropdown-menu",
+2026-07-28T10:38:56.708351Z	      "overridden": false
+2026-07-28T10:38:56.708386Z	    },
+2026-07-28T10:38:56.708431Z	    "@radix-ui/react-hover-card": {
+2026-07-28T10:38:56.708467Z	      "version": "1.1.23",
+2026-07-28T10:38:56.708504Z	      "resolved": "file:../.pnpm/@radix-ui+react-hover-card@1.1.23_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@_6vh552tfrymps3iismrqzt6lsu/node_modules/@radix-ui/react-hover-card",
+2026-07-28T10:38:56.708539Z	      "overridden": false
+2026-07-28T10:38:56.708575Z	    },
+2026-07-28T10:38:56.70861Z	    "@radix-ui/react-label": {
+2026-07-28T10:38:56.708644Z	      "version": "2.1.15",
+2026-07-28T10:38:56.708689Z	      "resolved": "file:../.pnpm/@radix-ui+react-label@2.1.15_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2._he4euu5tuubonbib6v57lvq3ti/node_modules/@radix-ui/react-label",
+2026-07-28T10:38:56.708726Z	      "overridden": false
+2026-07-28T10:38:56.708839Z	    },
+2026-07-28T10:38:56.709252Z	    "@radix-ui/react-menubar": {
+2026-07-28T10:38:56.70935Z	      "version": "1.1.24",
+2026-07-28T10:38:56.709419Z	      "resolved": "file:../.pnpm/@radix-ui+react-menubar@1.1.24_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19._4b2yawt7jp6vqrh4aaoc4fvwe4/node_modules/@radix-ui/react-menubar",
+2026-07-28T10:38:56.709698Z	      "overridden": false
+2026-07-28T10:38:56.709871Z	    },
+2026-07-28T10:38:56.709934Z	    "@radix-ui/react-navigation-menu": {
+2026-07-28T10:38:56.709996Z	      "version": "1.2.22",
+2026-07-28T10:38:56.710157Z	      "resolved": "file:../.pnpm/@radix-ui+react-navigation-menu@1.2.22_@types+react-dom@19.2.3_@types+react@19.2.17__@types+r_if2at42jvpeshwdvp4krf5onbe/node_modules/@radix-ui/react-navigation-menu",
+2026-07-28T10:38:56.710237Z	      "overridden": false
+2026-07-28T10:38:56.710273Z	    },
+2026-07-28T10:38:56.71031Z	    "@radix-ui/react-popover": {
+2026-07-28T10:38:56.710603Z	      "version": "1.1.23",
+2026-07-28T10:38:56.710669Z	      "resolved": "file:../.pnpm/@radix-ui+react-popover@1.1.23_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19._pvuhq2vhz6rjvsilbilkquwmau/node_modules/@radix-ui/react-popover",
+2026-07-28T10:38:56.710707Z	      "overridden": false
+2026-07-28T10:38:56.710741Z	    },
+2026-07-28T10:38:56.710769Z	    "@radix-ui/react-progress": {
+2026-07-28T10:38:56.710805Z	      "version": "1.1.16",
+2026-07-28T10:38:56.710853Z	      "resolved": "file:../.pnpm/@radix-ui+react-progress@1.1.16_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19_iyaz7bxpxlnvrsj3mgpsschmbu/node_modules/@radix-ui/react-progress",
+2026-07-28T10:38:56.710927Z	      "overridden": false
+2026-07-28T10:38:56.710997Z	    },
+2026-07-28T10:38:56.71107Z	    "@radix-ui/react-radio-group": {
+2026-07-28T10:38:56.711292Z	      "version": "1.4.7",
+2026-07-28T10:38:56.711619Z	      "resolved": "file:../.pnpm/@radix-ui+react-radio-group@1.4.7_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@_2hap4lps4ybec3gxasvi4s4dsy/node_modules/@radix-ui/react-radio-group",
+2026-07-28T10:38:56.71184Z	      "overridden": false
+2026-07-28T10:38:56.712107Z	    },
+2026-07-28T10:38:56.712213Z	    "@radix-ui/react-scroll-area": {
+2026-07-28T10:38:56.712275Z	      "version": "1.2.18",
+2026-07-28T10:38:56.712329Z	      "resolved": "file:../.pnpm/@radix-ui+react-scroll-area@1.2.18_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react_wj6n355unkbwzbv4kdnxydz5ju/node_modules/@radix-ui/react-scroll-area",
+2026-07-28T10:38:56.712418Z	      "overridden": false
+2026-07-28T10:38:56.71248Z	    },
+2026-07-28T10:38:56.712554Z	    "@radix-ui/react-select": {
+2026-07-28T10:38:56.712618Z	      "version": "2.3.7",
+2026-07-28T10:38:56.712683Z	      "resolved": "file:../.pnpm/@radix-ui+react-select@2.3.7_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2._zflpz7lk2e354dkq3eoupp2yay/node_modules/@radix-ui/react-select",
+2026-07-28T10:38:56.712745Z	      "overridden": false
+2026-07-28T10:38:56.712816Z	    },
+2026-07-28T10:38:56.712886Z	    "@radix-ui/react-separator": {
+2026-07-28T10:38:56.712949Z	      "version": "1.1.15",
+2026-07-28T10:38:56.713024Z	      "resolved": "file:../.pnpm/@radix-ui+react-separator@1.1.15_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@1_kvs4ynn2ayncjweslgrf5mwhdm/node_modules/@radix-ui/react-separator",
+2026-07-28T10:38:56.7131Z	      "overridden": false
+2026-07-28T10:38:56.713158Z	    },
+2026-07-28T10:38:56.713211Z	    "@radix-ui/react-slider": {
+2026-07-28T10:38:56.713254Z	      "version": "1.4.7",
+2026-07-28T10:38:56.713321Z	      "resolved": "file:../.pnpm/@radix-ui+react-slider@1.4.7_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2._g2se466anxayhcx4445vz2eguy/node_modules/@radix-ui/react-slider",
+2026-07-28T10:38:56.713362Z	      "overridden": false
+2026-07-28T10:38:56.713403Z	    },
+2026-07-28T10:38:56.713491Z	    "@radix-ui/react-slot": {
+2026-07-28T10:38:56.713547Z	      "version": "1.3.3",
+2026-07-28T10:38:56.713592Z	      "resolved": "file:../.pnpm/@radix-ui+react-slot@1.3.3_@types+react@19.2.17_react@19.2.3/node_modules/@radix-ui/react-slot",
+2026-07-28T10:38:56.713636Z	      "overridden": false
+2026-07-28T10:38:56.713682Z	    },
+2026-07-28T10:38:56.713763Z	    "@radix-ui/react-switch": {
+2026-07-28T10:38:56.713817Z	      "version": "1.3.7",
+2026-07-28T10:38:56.713889Z	      "resolved": "file:../.pnpm/@radix-ui+react-switch@1.3.7_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2._r3ga77ju6jnbv4hdh2axwmhox4/node_modules/@radix-ui/react-switch",
+2026-07-28T10:38:56.713944Z	      "overridden": false
+2026-07-28T10:38:56.714Z	    },
+2026-07-28T10:38:56.714056Z	    "@radix-ui/react-tabs": {
+2026-07-28T10:38:56.714121Z	      "version": "1.1.21",
+2026-07-28T10:38:56.714204Z	      "resolved": "file:../.pnpm/@radix-ui+react-tabs@1.1.21_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2.1_cw2iwnk6psmnic43xcwuyecjcy/node_modules/@radix-ui/react-tabs",
+2026-07-28T10:38:56.714254Z	      "overridden": false
+2026-07-28T10:38:56.714296Z	    },
+2026-07-28T10:38:56.714353Z	    "@radix-ui/react-toggle-group": {
+2026-07-28T10:38:56.714427Z	      "version": "1.1.19",
+2026-07-28T10:38:56.714525Z	      "resolved": "file:../.pnpm/@radix-ui+react-toggle-group@1.1.19_@types+react-dom@19.2.3_@types+react@19.2.17__@types+reac_5odiupiuqhdixnxuxzuipp5po4/node_modules/@radix-ui/react-toggle-group",
+2026-07-28T10:38:56.714592Z	      "overridden": false
+2026-07-28T10:38:56.714664Z	    },
+2026-07-28T10:38:56.714742Z	    "@radix-ui/react-toggle": {
+2026-07-28T10:38:56.714818Z	      "version": "1.1.18",
+2026-07-28T10:38:56.714893Z	      "resolved": "file:../.pnpm/@radix-ui+react-toggle@1.1.18_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2_bnz5yq4mtz76zo2jv5roef2xcy/node_modules/@radix-ui/react-toggle",
+2026-07-28T10:38:56.714969Z	      "overridden": false
+2026-07-28T10:38:56.71505Z	    },
+2026-07-28T10:38:56.715128Z	    "@radix-ui/react-tooltip": {
+2026-07-28T10:38:56.715211Z	      "version": "1.2.16",
+2026-07-28T10:38:56.715279Z	      "resolved": "file:../.pnpm/@radix-ui+react-tooltip@1.2.16_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19._efd5ukdh4v33euwwauizdae5ce/node_modules/@radix-ui/react-tooltip",
+2026-07-28T10:38:56.71536Z	      "overridden": false
+2026-07-28T10:38:56.715449Z	    },
+2026-07-28T10:38:56.715528Z	    "@react-dev-inspector/babel-plugin": {
+2026-07-28T10:38:56.715589Z	      "version": "2.0.1",
+2026-07-28T10:38:56.715646Z	      "resolved": "file:../.pnpm/@react-dev-inspector+babel-plugin@2.0.1/node_modules/@react-dev-inspector/babel-plugin",
+2026-07-28T10:38:56.715698Z	      "overridden": false
+2026-07-28T10:38:56.715745Z	    },
+2026-07-28T10:38:56.715813Z	    "@react-dev-inspector/middleware": {
+2026-07-28T10:38:56.715883Z	      "version": "2.0.1",
+2026-07-28T10:38:56.715932Z	      "resolved": "file:../.pnpm/@react-dev-inspector+middleware@2.0.1_eslint@9.39.5_jiti@2.7.0__typescript@5.9.3_webpack@5.10_uoqa2ybspmybedf6atghchvu7e/node_modules/@react-dev-inspector/middleware",
+2026-07-28T10:38:56.715999Z	      "overridden": false
+2026-07-28T10:38:56.716109Z	    },
+2026-07-28T10:38:56.716186Z	    "@supabase/supabase-js": {
+2026-07-28T10:38:56.716224Z	      "version": "2.95.3",
+2026-07-28T10:38:56.71626Z	      "resolved": "file:../.pnpm/@supabase+supabase-js@2.95.3/node_modules/@supabase/supabase-js",
+2026-07-28T10:38:56.716314Z	      "overridden": false
+2026-07-28T10:38:56.716382Z	    },
+2026-07-28T10:38:56.716438Z	    "@tailwindcss/postcss": {
+2026-07-28T10:38:56.716491Z	      "version": "4.3.3",
+2026-07-28T10:38:56.716544Z	      "resolved": "file:../.pnpm/@tailwindcss+postcss@4.3.3/node_modules/@tailwindcss/postcss",
+2026-07-28T10:38:56.716589Z	      "overridden": false
+2026-07-28T10:38:56.716639Z	    },
+2026-07-28T10:38:56.716692Z	    "@types/node": {
+2026-07-28T10:38:56.716763Z	      "version": "20.19.43",
+2026-07-28T10:38:56.716827Z	      "resolved": "file:../.pnpm/@types+node@20.19.43/node_modules/@types/node",
+2026-07-28T10:38:56.716896Z	      "overridden": false
+2026-07-28T10:38:56.717025Z	    },
+2026-07-28T10:38:56.717205Z	    "@types/pg": {
+2026-07-28T10:38:56.717835Z	      "version": "8.20.0",
+2026-07-28T10:38:56.718565Z	      "resolved": "file:../.pnpm/@types+pg@8.20.0/node_modules/@types/pg",
+2026-07-28T10:38:56.719012Z	      "overridden": false
+2026-07-28T10:38:56.719222Z	    },
+2026-07-28T10:38:56.719515Z	    "@types/react-dom": {
+2026-07-28T10:38:56.720259Z	      "version": "19.2.3",
+2026-07-28T10:38:56.72032Z	      "resolved": "file:../.pnpm/@types+react-dom@19.2.3_@types+react@19.2.17/node_modules/@types/react-dom",
+2026-07-28T10:38:56.720386Z	      "overridden": false
+2026-07-28T10:38:56.72042Z	    },
+2026-07-28T10:38:56.720451Z	    "@types/react": {
+2026-07-28T10:38:56.720499Z	      "version": "19.2.17",
+2026-07-28T10:38:56.720578Z	      "resolved": "file:../.pnpm/@types+react@19.2.17/node_modules/@types/react",
+2026-07-28T10:38:56.720645Z	      "overridden": false
+2026-07-28T10:38:56.720696Z	    },
+2026-07-28T10:38:56.720775Z	    "@typescript-eslint/project-service": {
+2026-07-28T10:38:56.720828Z	      "version": "8.65.0",
+2026-07-28T10:38:56.720873Z	      "resolved": "file:../.pnpm/@typescript-eslint+project-service@8.65.0_typescript@5.9.3/node_modules/@typescript-eslint/project-service",
+2026-07-28T10:38:56.72091Z	      "overridden": false,
+2026-07-28T10:38:56.720957Z	      "extraneous": true,
+2026-07-28T10:38:56.721012Z	      "problems": [
+2026-07-28T10:38:56.721076Z	        "extraneous: @typescript-eslint/project-service@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/project-service"
+2026-07-28T10:38:56.721136Z	      ]
+2026-07-28T10:38:56.721224Z	    },
+2026-07-28T10:38:56.721275Z	    "@typescript-eslint/scope-manager": {
+2026-07-28T10:38:56.721311Z	      "version": "8.65.0",
+2026-07-28T10:38:56.721343Z	      "resolved": "file:../.pnpm/@typescript-eslint+scope-manager@8.65.0/node_modules/@typescript-eslint/scope-manager",
+2026-07-28T10:38:56.721377Z	      "overridden": false,
+2026-07-28T10:38:56.721423Z	      "extraneous": true,
+2026-07-28T10:38:56.721477Z	      "problems": [
+2026-07-28T10:38:56.721627Z	        "extraneous: @typescript-eslint/scope-manager@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/scope-manager"
+2026-07-28T10:38:56.721775Z	      ]
+2026-07-28T10:38:56.721831Z	    },
+2026-07-28T10:38:56.721868Z	    "@typescript-eslint/tsconfig-utils": {
+2026-07-28T10:38:56.721971Z	      "version": "8.65.0",
+2026-07-28T10:38:56.722194Z	      "resolved": "file:../.pnpm/@typescript-eslint+tsconfig-utils@8.65.0_typescript@5.9.3/node_modules/@typescript-eslint/tsconfig-utils",
+2026-07-28T10:38:56.722267Z	      "overridden": false,
+2026-07-28T10:38:56.722349Z	      "extraneous": true,
+2026-07-28T10:38:56.722396Z	      "problems": [
+2026-07-28T10:38:56.722811Z	        "extraneous: @typescript-eslint/tsconfig-utils@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/tsconfig-utils"
+2026-07-28T10:38:56.723134Z	      ]
+2026-07-28T10:38:56.723216Z	    },
+2026-07-28T10:38:56.723283Z	    "@typescript-eslint/visitor-keys": {
+2026-07-28T10:38:56.723567Z	      "version": "8.65.0",
+2026-07-28T10:38:56.723853Z	      "resolved": "file:../.pnpm/@typescript-eslint+visitor-keys@8.65.0/node_modules/@typescript-eslint/visitor-keys",
+2026-07-28T10:38:56.724206Z	      "overridden": false,
+2026-07-28T10:38:56.724329Z	      "extraneous": true,
+2026-07-28T10:38:56.724409Z	      "problems": [
+2026-07-28T10:38:56.724575Z	        "extraneous: @typescript-eslint/visitor-keys@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/visitor-keys"
+2026-07-28T10:38:56.724666Z	      ]
+2026-07-28T10:38:56.724867Z	    },
+2026-07-28T10:38:56.725017Z	    "class-variance-authority": {
+2026-07-28T10:38:56.725351Z	      "version": "0.7.1",
+2026-07-28T10:38:56.725572Z	      "resolved": "file:.pnpm/class-variance-authority@0.7.1/node_modules/class-variance-authority",
+2026-07-28T10:38:56.72599Z	      "overridden": false
+2026-07-28T10:38:56.726056Z	    },
+2026-07-28T10:38:56.726098Z	    "clsx": {
+2026-07-28T10:38:56.72613Z	      "version": "2.1.1",
+2026-07-28T10:38:56.726164Z	      "resolved": "file:.pnpm/clsx@2.1.1/node_modules/clsx",
+2026-07-28T10:38:56.726211Z	      "overridden": false
+2026-07-28T10:38:56.726255Z	    },
+2026-07-28T10:38:56.726309Z	    "cmdk": {
+2026-07-28T10:38:56.726392Z	      "version": "1.1.1",
+2026-07-28T10:38:56.726441Z	      "resolved": "file:.pnpm/cmdk@1.1.1_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2.17_react-dom@19.2._sx2vi6moomsoynxxcx6ovuwj6i/node_modules/cmdk",
+2026-07-28T10:38:56.726477Z	      "overridden": false
+2026-07-28T10:38:56.726527Z	    },
+2026-07-28T10:38:56.726564Z	    "date-fns": {
+2026-07-28T10:38:56.726596Z	      "version": "4.4.0",
+2026-07-28T10:38:56.726635Z	      "resolved": "file:.pnpm/date-fns@4.4.0/node_modules/date-fns",
+2026-07-28T10:38:56.726674Z	      "overridden": false
+2026-07-28T10:38:56.726706Z	    },
+2026-07-28T10:38:56.726787Z	    "dotenv": {
+2026-07-28T10:38:56.726957Z	      "version": "17.4.2",
+2026-07-28T10:38:56.726999Z	      "resolved": "file:.pnpm/dotenv@17.4.2/node_modules/dotenv",
+2026-07-28T10:38:56.727049Z	      "overridden": false
+2026-07-28T10:38:56.727244Z	    },
+2026-07-28T10:38:56.727323Z	    "drizzle-orm": {
+2026-07-28T10:38:56.727386Z	      "version": "0.45.2",
+2026-07-28T10:38:56.72744Z	      "resolved": "file:.pnpm/drizzle-orm@0.45.2_@cloudflare+workers-types@4.20240208.0_@types+pg@8.20.0/node_modules/drizzle-orm",
+2026-07-28T10:38:56.727489Z	      "overridden": false
+2026-07-28T10:38:56.727538Z	    },
+2026-07-28T10:38:56.727627Z	    "embla-carousel-react": {
+2026-07-28T10:38:56.727849Z	      "version": "8.6.0",
+2026-07-28T10:38:56.728001Z	      "resolved": "file:.pnpm/embla-carousel-react@8.6.0_react@19.2.3/node_modules/embla-carousel-react",
+2026-07-28T10:38:56.728122Z	      "overridden": false
+2026-07-28T10:38:56.728248Z	    },
+2026-07-28T10:38:56.728313Z	    "eslint-config-next": {
+2026-07-28T10:38:56.728385Z	      "version": "16.1.1",
+2026-07-28T10:38:56.728442Z	      "resolved": "file:.pnpm/eslint-config-next@16.1.1_@typescript-eslint+parser@8.65.0_eslint@9.39.5_jiti@2.7.0__typescri_rtztnsavo5upo7kztt6gsklndu/node_modules/eslint-config-next",
+2026-07-28T10:38:56.728501Z	      "overridden": false
+2026-07-28T10:38:56.728556Z	    },
+2026-07-28T10:38:56.728602Z	    "eslint-import-resolver-node": {
+2026-07-28T10:38:56.72866Z	      "version": "0.3.10",
+2026-07-28T10:38:56.728749Z	      "resolved": "file:.pnpm/eslint-import-resolver-node@0.3.10/node_modules/eslint-import-resolver-node",
+2026-07-28T10:38:56.72906Z	      "overridden": false,
+2026-07-28T10:38:56.729309Z	      "extraneous": true,
+2026-07-28T10:38:56.729406Z	      "problems": [
+2026-07-28T10:38:56.729549Z	        "extraneous: eslint-import-resolver-node@0.3.10 /opt/buildhome/repo/node_modules/eslint-import-resolver-node"
+2026-07-28T10:38:56.729616Z	      ]
+2026-07-28T10:38:56.729681Z	    },
+2026-07-28T10:38:56.729737Z	    "eslint-module-utils": {
+2026-07-28T10:38:56.7299Z	      "version": "2.14.0",
+2026-07-28T10:38:56.730202Z	      "resolved": "file:.pnpm/eslint-module-utils@2.14.0_@typescript-eslint+parser@8.65.0_eslint@9.39.5_jiti@2.7.0__typescr_m57gu4dwdguqfabz2mdpzday6a/node_modules/eslint-module-utils",
+2026-07-28T10:38:56.730446Z	      "overridden": false,
+2026-07-28T10:38:56.730521Z	      "extraneous": true,
+2026-07-28T10:38:56.730571Z	      "problems": [
+2026-07-28T10:38:56.730748Z	        "extraneous: eslint-module-utils@2.14.0 /opt/buildhome/repo/node_modules/eslint-module-utils"
+2026-07-28T10:38:56.731091Z	      ]
+2026-07-28T10:38:56.731368Z	    },
+2026-07-28T10:38:56.731498Z	    "eslint": {
+2026-07-28T10:38:56.731572Z	      "version": "9.39.5",
+2026-07-28T10:38:56.731637Z	      "resolved": "file:.pnpm/eslint@9.39.5_jiti@2.7.0/node_modules/eslint",
+2026-07-28T10:38:56.731703Z	      "overridden": false
+2026-07-28T10:38:56.731768Z	    },
+2026-07-28T10:38:56.73184Z	    "input-otp": {
+2026-07-28T10:38:56.732024Z	      "version": "1.4.2",
+2026-07-28T10:38:56.732369Z	      "resolved": "file:.pnpm/input-otp@1.4.2_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/input-otp",
+2026-07-28T10:38:56.73247Z	      "overridden": false
+2026-07-28T10:38:56.732692Z	    },
+2026-07-28T10:38:56.732793Z	    "lucide-react": {
+2026-07-28T10:38:56.73286Z	      "version": "0.468.0",
+2026-07-28T10:38:56.732931Z	      "resolved": "file:.pnpm/lucide-react@0.468.0_react@19.2.3/node_modules/lucide-react",
+2026-07-28T10:38:56.7333Z	      "overridden": false
+2026-07-28T10:38:56.733609Z	    },
+2026-07-28T10:38:56.733749Z	    "next-themes": {
+2026-07-28T10:38:56.733895Z	      "version": "0.4.6",
+2026-07-28T10:38:56.734187Z	      "resolved": "file:.pnpm/next-themes@0.4.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next-themes",
+2026-07-28T10:38:56.734387Z	      "overridden": false
+2026-07-28T10:38:56.734506Z	    },
+2026-07-28T10:38:56.734652Z	    "next": {
+2026-07-28T10:38:56.734743Z	      "version": "16.1.1",
+2026-07-28T10:38:56.734832Z	      "resolved": "file:.pnpm/next@16.1.1_@babel+core@7.29.7_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next",
+2026-07-28T10:38:56.735098Z	      "overridden": false
+2026-07-28T10:38:56.735502Z	    },
+2026-07-28T10:38:56.735623Z	    "react-day-picker": {
+2026-07-28T10:38:56.735674Z	      "version": "9.14.0",
+2026-07-28T10:38:56.735721Z	      "resolved": "file:.pnpm/react-day-picker@9.14.0_react@19.2.3/node_modules/react-day-picker",
+2026-07-28T10:38:56.735797Z	      "overridden": false
+2026-07-28T10:38:56.735866Z	    },
+2026-07-28T10:38:56.73594Z	    "react-dev-inspector": {
+2026-07-28T10:38:56.736011Z	      "version": "2.0.1",
+2026-07-28T10:38:56.736145Z	      "resolved": "file:.pnpm/react-dev-inspector@2.0.1_@types+react@19.2.17_eslint@9.39.5_jiti@2.7.0__react@19.2.3_typescr_gousx6yfcef56rew6a5um7e4dy/node_modules/react-dev-inspector",
+2026-07-28T10:38:56.736221Z	      "overridden": false
+2026-07-28T10:38:56.736259Z	    },
+2026-07-28T10:38:56.736292Z	    "react-dom": {
+2026-07-28T10:38:56.736322Z	      "version": "19.2.3",
+2026-07-28T10:38:56.736358Z	      "resolved": "file:.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom",
+2026-07-28T10:38:56.73688Z	      "overridden": false
+2026-07-28T10:38:56.737198Z	    },
+2026-07-28T10:38:56.737273Z	    "react-hook-form": {
+2026-07-28T10:38:56.73755Z	      "version": "7.83.0",
+2026-07-28T10:38:56.737684Z	      "resolved": "file:.pnpm/react-hook-form@7.83.0_react@19.2.3/node_modules/react-hook-form",
+2026-07-28T10:38:56.737756Z	      "overridden": false
+2026-07-28T10:38:56.737807Z	    },
+2026-07-28T10:38:56.73785Z	    "react-resizable-panels": {
+2026-07-28T10:38:56.737896Z	      "version": "4.12.2",
+2026-07-28T10:38:56.737938Z	      "resolved": "file:.pnpm/react-resizable-panels@4.12.2_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/react-resizable-panels",
+2026-07-28T10:38:56.737978Z	      "overridden": false
+2026-07-28T10:38:56.738014Z	    },
+2026-07-28T10:38:56.738054Z	    "react": {
+2026-07-28T10:38:56.73809Z	      "version": "19.2.3",
+2026-07-28T10:38:56.738129Z	      "resolved": "file:.pnpm/react@19.2.3/node_modules/react",
+2026-07-28T10:38:56.73817Z	      "overridden": false
+2026-07-28T10:38:56.738221Z	    },
+2026-07-28T10:38:56.73826Z	    "recharts": {
+2026-07-28T10:38:56.738298Z	      "version": "2.15.4",
+2026-07-28T10:38:56.738339Z	      "resolved": "file:.pnpm/recharts@2.15.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/recharts",
+2026-07-28T10:38:56.738379Z	      "overridden": false
+2026-07-28T10:38:56.738415Z	    },
+2026-07-28T10:38:56.738455Z	    "shadcn": {
+2026-07-28T10:38:56.738494Z	      "version": "4.15.0",
+2026-07-28T10:38:56.738531Z	      "resolved": "file:.pnpm/shadcn@4.15.0_typescript@5.9.3/node_modules/shadcn",
+2026-07-28T10:38:56.738574Z	      "overridden": false,
+2026-07-28T10:38:56.738617Z	      "invalid": "\"latest\" from the root project",
+2026-07-28T10:38:56.738655Z	      "problems": [
+2026-07-28T10:38:56.738696Z	        "invalid: shadcn@4.15.0 /opt/buildhome/repo/node_modules/shadcn"
+2026-07-28T10:38:56.738734Z	      ]
+2026-07-28T10:38:56.73877Z	    },
+2026-07-28T10:38:56.738805Z	    "sonner": {
+2026-07-28T10:38:56.738844Z	      "version": "2.0.7",
+2026-07-28T10:38:56.738885Z	      "resolved": "file:.pnpm/sonner@2.0.7_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/sonner",
+2026-07-28T10:38:56.738923Z	      "overridden": false
+2026-07-28T10:38:56.738963Z	    },
+2026-07-28T10:38:56.739Z	    "stylelint-config-standard": {
+2026-07-28T10:38:56.739041Z	      "version": "38.0.0",
+2026-07-28T10:38:56.739079Z	      "resolved": "file:.pnpm/stylelint-config-standard@38.0.0_stylelint@16.26.1_typescript@5.9.3_/node_modules/stylelint-config-standard",
+2026-07-28T10:38:56.739119Z	      "overridden": false
+2026-07-28T10:38:56.739155Z	    },
+2026-07-28T10:38:56.739206Z	    "stylelint": {
+2026-07-28T10:38:56.739248Z	      "version": "16.26.1",
+2026-07-28T10:38:56.739311Z	      "resolved": "file:.pnpm/stylelint@16.26.1_typescript@5.9.3/node_modules/stylelint",
+2026-07-28T10:38:56.739352Z	      "overridden": false
+2026-07-28T10:38:56.739392Z	    },
+2026-07-28T10:38:56.739431Z	    "tailwind-merge": {
+2026-07-28T10:38:56.739471Z	      "version": "2.6.1",
+2026-07-28T10:38:56.739508Z	      "resolved": "file:.pnpm/tailwind-merge@2.6.1/node_modules/tailwind-merge",
+2026-07-28T10:38:56.739549Z	      "overridden": false
+2026-07-28T10:38:56.739586Z	    },
+2026-07-28T10:38:56.739621Z	    "tailwindcss": {
+2026-07-28T10:38:56.739658Z	      "version": "4.3.3",
+2026-07-28T10:38:56.739694Z	      "resolved": "file:.pnpm/tailwindcss@4.3.3/node_modules/tailwindcss",
+2026-07-28T10:38:56.739741Z	      "overridden": false
+2026-07-28T10:38:56.739789Z	    },
+2026-07-28T10:38:56.739826Z	    "tsup": {
+2026-07-28T10:38:56.739865Z	      "version": "8.5.1",
+2026-07-28T10:38:56.739906Z	      "resolved": "file:.pnpm/tsup@8.5.1_jiti@2.7.0_postcss@8.5.23_tsx@4.23.1_typescript@5.9.3/node_modules/tsup",
+2026-07-28T10:38:56.739943Z	      "overridden": false
+2026-07-28T10:38:56.739977Z	    },
+2026-07-28T10:38:56.740012Z	    "tsx": {
+2026-07-28T10:38:56.740107Z	      "version": "4.23.1",
+2026-07-28T10:38:56.740201Z	      "resolved": "file:.pnpm/tsx@4.23.1/node_modules/tsx",
+2026-07-28T10:38:56.740286Z	      "overridden": false
+2026-07-28T10:38:56.740327Z	    },
+2026-07-28T10:38:56.740371Z	    "tw-animate-css": {
+2026-07-28T10:38:56.74042Z	      "version": "1.4.0",
+2026-07-28T10:38:56.740463Z	      "resolved": "file:.pnpm/tw-animate-css@1.4.0/node_modules/tw-animate-css",
+2026-07-28T10:38:56.740507Z	      "overridden": false
+2026-07-28T10:38:56.740548Z	    },
+2026-07-28T10:38:56.740592Z	    "typescript": {
+2026-07-28T10:38:56.740633Z	      "version": "5.9.3",
+2026-07-28T10:38:56.740673Z	      "resolved": "file:.pnpm/typescript@5.9.3/node_modules/typescript",
+2026-07-28T10:38:56.740711Z	      "overridden": false
+2026-07-28T10:38:56.740748Z	    },
+2026-07-28T10:38:56.740787Z	    "vaul": {
+2026-07-28T10:38:56.740828Z	      "version": "1.1.2",
+2026-07-28T10:38:56.740877Z	      "resolved": "file:.pnpm/vaul@1.1.2_@types+react-dom@19.2.3_@types+react@19.2.17__@types+react@19.2.17_react-dom@19.2._iegdmvkkr5ctx2fbwq3n2topzq/node_modules/vaul",
+2026-07-28T10:38:56.740925Z	      "overridden": false
+2026-07-28T10:38:56.740969Z	    },
+2026-07-28T10:38:56.741006Z	    "zod": {
+2026-07-28T10:38:56.741042Z	      "version": "4.4.3",
+2026-07-28T10:38:56.741079Z	      "resolved": "file:.pnpm/zod@4.4.3/node_modules/zod",
+2026-07-28T10:38:56.741114Z	      "overridden": false
+2026-07-28T10:38:56.741151Z	    }
+2026-07-28T10:38:56.7412Z	  },
+2026-07-28T10:38:56.741243Z	  "error": {
+2026-07-28T10:38:56.741323Z	    "code": "ELSPROBLEMS",
+2026-07-28T10:38:56.741444Z	    "summary": "extraneous: @eslint-community/eslint-utils@4.10.1 /opt/buildhome/repo/node_modules/@eslint-community/eslint-utils\nextraneous: @eslint-community/regexpp@4.12.2 /opt/buildhome/repo/node_modules/@eslint-community/regexpp\nextraneous: @eslint/config-array@0.21.2 /opt/buildhome/repo/node_modules/@eslint/config-array\nextraneous: @eslint/config-helpers@0.4.2 /opt/buildhome/repo/node_modules/@eslint/config-helpers\nextraneous: @eslint/core@0.17.0 /opt/buildhome/repo/node_modules/@eslint/core\nextraneous: @eslint/eslintrc@3.3.6 /opt/buildhome/repo/node_modules/@eslint/eslintrc\nextraneous: @eslint/object-schema@2.1.7 /opt/buildhome/repo/node_modules/@eslint/object-schema\nextraneous: @eslint/plugin-kit@0.4.1 /opt/buildhome/repo/node_modules/@eslint/plugin-kit\nextraneous: @next/eslint-plugin-next@16.1.1 /opt/buildhome/repo/node_modules/@next/eslint-plugin-next\nextraneous: @typescript-eslint/project-service@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/project-service\nextraneous: @typescript-eslint/scope-manager@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/scope-manager\nextraneous: @typescript-eslint/tsconfig-utils@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/tsconfig-utils\nextraneous: @typescript-eslint/visitor-keys@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/visitor-keys\nextraneous: eslint-import-resolver-node@0.3.10 /opt/buildhome/repo/node_modules/eslint-import-resolver-node\nextraneous: eslint-module-utils@2.14.0 /opt/buildhome/repo/node_modules/eslint-module-utils\ninvalid: shadcn@4.15.0 /opt/buildhome/repo/node_modules/shadcn",
+2026-07-28T10:38:56.741517Z	    "detail": ""
+2026-07-28T10:38:56.741552Z	  }
+2026-07-28T10:38:56.741582Z	}
+2026-07-28T10:38:56.741655Z	
+2026-07-28T10:38:56.741884Z	
+2026-07-28T10:38:56.742044Z	STDERR:
+2026-07-28T10:38:56.742363Z	
+2026-07-28T10:38:56.74247Z	npm error code ELSPROBLEMS
+2026-07-28T10:38:56.742547Z	npm error extraneous: @eslint-community/eslint-utils@4.10.1 /opt/buildhome/repo/node_modules/@eslint-community/eslint-utils
+2026-07-28T10:38:56.742613Z	npm error extraneous: @eslint-community/regexpp@4.12.2 /opt/buildhome/repo/node_modules/@eslint-community/regexpp
+2026-07-28T10:38:56.742681Z	npm error extraneous: @eslint/config-array@0.21.2 /opt/buildhome/repo/node_modules/@eslint/config-array
+2026-07-28T10:38:56.742744Z	npm error extraneous: @eslint/config-helpers@0.4.2 /opt/buildhome/repo/node_modules/@eslint/config-helpers
+2026-07-28T10:38:56.7428Z	npm error extraneous: @eslint/core@0.17.0 /opt/buildhome/repo/node_modules/@eslint/core
+2026-07-28T10:38:56.742844Z	npm error extraneous: @eslint/eslintrc@3.3.6 /opt/buildhome/repo/node_modules/@eslint/eslintrc
+2026-07-28T10:38:56.742885Z	npm error extraneous: @eslint/object-schema@2.1.7 /opt/buildhome/repo/node_modules/@eslint/object-schema
+2026-07-28T10:38:56.742936Z	npm error extraneous: @eslint/plugin-kit@0.4.1 /opt/buildhome/repo/node_modules/@eslint/plugin-kit
+2026-07-28T10:38:56.742972Z	npm error extraneous: @next/eslint-plugin-next@16.1.1 /opt/buildhome/repo/node_modules/@next/eslint-plugin-next
+2026-07-28T10:38:56.743024Z	npm error extraneous: @typescript-eslint/project-service@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/project-service
+2026-07-28T10:38:56.74307Z	npm error extraneous: @typescript-eslint/scope-manager@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/scope-manager
+2026-07-28T10:38:56.743126Z	npm error extraneous: @typescript-eslint/tsconfig-utils@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/tsconfig-utils
+2026-07-28T10:38:56.743192Z	npm error extraneous: @typescript-eslint/visitor-keys@8.65.0 /opt/buildhome/repo/node_modules/@typescript-eslint/visitor-keys
+2026-07-28T10:38:56.743242Z	npm error extraneous: eslint-import-resolver-node@0.3.10 /opt/buildhome/repo/node_modules/eslint-import-resolver-node
+2026-07-28T10:38:56.743284Z	npm error extraneous: eslint-module-utils@2.14.0 /opt/buildhome/repo/node_modules/eslint-module-utils
+2026-07-28T10:38:56.743334Z	npm error invalid: shadcn@4.15.0 /opt/buildhome/repo/node_modules/shadcn
+2026-07-28T10:38:56.743383Z	npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2026-07-28T10_38_52_925Z-debug-0.log
+2026-07-28T10:38:56.743417Z	
+2026-07-28T10:38:56.743445Z	
+2026-07-28T10:38:56.743477Z	
+2026-07-28T10:38:56.743528Z	⚡️ ERROR: Failed to produce a Cloudflare Pages build from the project.
+2026-07-28T10:38:56.743572Z	⚡️ 
+2026-07-28T10:38:56.743614Z	⚡️ 	The following routes were not configured to run with the Edge Runtime:
+2026-07-28T10:38:56.743668Z	⚡️ 	  - /api/cp/[id]
+2026-07-28T10:38:56.743722Z	⚡️ 	  - /api/cp
+2026-07-28T10:38:56.743765Z	⚡️ 	  - /api/refresh
+2026-07-28T10:38:56.743815Z	⚡️ 
+2026-07-28T10:38:56.743855Z	⚡️ 	Please make sure that all your non-static routes export the following edge runtime route segment config:
+2026-07-28T10:38:56.743908Z	⚡️ 	  export const runtime = 'edge';
+2026-07-28T10:38:56.743943Z	⚡️ 
+2026-07-28T10:38:56.744001Z	⚡️ 	You can read more about the Edge Runtime on the Next.js documentation:
+2026-07-28T10:38:56.744178Z	⚡️ 	  https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes
+2026-07-28T10:38:56.744281Z	
+2026-07-28T10:38:56.786213Z	Failed: Error while executing user command. Exited with error code: 1
+2026-07-28T10:38:56.796263Z	Failed: build command exited with code: 1
+2026-07-28T10:38:57.70858Z	Failed: error occurred while running build command
