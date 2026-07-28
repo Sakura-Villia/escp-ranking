@@ -418,7 +418,7 @@ export function CPRankingClient() {
         
         // CP 之间间隔 500ms，进一步降低并发压力
         if (i < cps.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 500));
+          await new Promise(resolve => setTimeout(resolve, 200));
         }
       }
       

@@ -33,7 +33,7 @@ async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
     if (!res.ok) {
       // 如果是 5xx 错误且还有重试次数，等待后重试
       if (res.status >= 500 && retryCount < 3) {
-        const backoff = Math.pow(2, retryCount) * 2000 + Math.random() * 1000;
+        const backoff = Math.pow(2, retryCount) * 1000 + Math.random() * 500;
         console.log(`[Refresh] Retry ${retryCount + 1}/3 for tag "${tag}" after ${Math.round(backoff)}ms (HTTP ${res.status})`);
         await delay(backoff);
         return fetchLofterTag(tag, retryCount + 1);
@@ -103,9 +103,9 @@ export async function onRequestGet(context: any) {
       const result = await fetchLofterTag(tag);
       results.push(result);
       
-      // 请求间隔 1-2 秒（随机），最后一个标签不需要延迟
+      // 请求间隔 300-500ms（随机），最后一个标签不需要延迟
       if (i < tags.length - 1) {
-        const randomDelay = 1000 + Math.random() * 1000;
+        const randomDelay = 300 + Math.random() * 200;
         await delay(randomDelay);
       }
     }
