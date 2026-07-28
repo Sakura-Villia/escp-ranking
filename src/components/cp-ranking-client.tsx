@@ -392,44 +392,60 @@ export function CPRankingClient() {
     }, 90000);
     
     try {
-      // 串行处理每个 CP，避免并发请求触发 LOFTER 速率限制
+      // 小批量并发处理 CP（每批 3 个），批间间隔 100ms
+      const BATCH_SIZE = 3;
       const updated: CPItem[] = [];
       let successCount = 0;
       let failedCount = 0;
       
-      for (let i = 0; i < cps.length; i++) {
-        try {
-          const refreshed = await refreshOneCP(cps[i]);
-          updated.push(refreshed);
-          
-          // 检查是否有新数据
-          const hasNewData = refreshed.groups.some((g) =>
-            g.aliases.some((a, idx) => {
-              const oldAlias = cps[i].groups.find((og) => og.id === g.id)?.aliases[idx];
-              return oldAlias && a.joinedNum !== oldAlias.joinedNum;
-            })
-          );
-          
-          // 只有有新数据时才保存
-          if (hasNewData) {
-            const saveResult = await saveToDatabase(refreshed, 'PUT');
-            if (saveResult.success) {
-              successCount++;
-            } else {
-              failedCount++;
-              console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+      for (let i = 0; i < cps.length; i += BATCH_SIZE) {
+        const batch = cps.slice(i, i + BATCH_SIZE);
+        
+        // 并发处理当前批次
+        const batchResults = await Promise.all(
+          batch.map(async (cp) => {
+            try {
+              const refreshed = await refreshOneCP(cp);
+              
+              // 检查是否有新数据
+              const hasNewData = refreshed.groups.some((g) =>
+                g.aliases.some((a, idx) => {
+                  const oldAlias = cp.groups.find((og) => og.id === g.id)?.aliases[idx];
+                  return oldAlias && a.joinedNum !== oldAlias.joinedNum;
+                })
+              );
+              
+              // 只有有新数据时才保存
+              if (hasNewData) {
+                const saveResult = await saveToDatabase(refreshed, 'PUT');
+                if (saveResult.success) {
+                  return { cp: refreshed, success: true };
+                } else {
+                  console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+                  return { cp: refreshed, success: false };
+                }
+              } else {
+                return { cp: refreshed, success: true }; // 没有新数据也算成功
+              }
+            } catch (err) {
+              console.error(`Failed to refresh CP "${cp.displayName}":`, err);
+              return { cp, success: false };
             }
+          })
+        );
+        
+        // 收集结果
+        for (const result of batchResults) {
+          updated.push(result.cp);
+          if (result.success) {
+            successCount++;
           } else {
-            successCount++; // 没有新数据也算成功（保留了旧数据）
+            failedCount++;
           }
-        } catch (err) {
-          console.error(`Failed to refresh CP "${cps[i].displayName}":`, err);
-          updated.push(cps[i]); // 保留旧数据
-          failedCount++;
         }
         
-        // CP 之间间隔 100ms，进一步降低并发压力
-        if (i < cps.length - 1) {
+        // 批间间隔 100ms，最后一批不需要延迟
+        if (i + BATCH_SIZE < cps.length) {
           await new Promise(resolve => setTimeout(resolve, 100));
         }
       }

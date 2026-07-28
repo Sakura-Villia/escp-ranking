@@ -114,17 +114,20 @@ export async function onRequestGet(context: any) {
 
     const tags = tagsParam.split(',').map(decodeURIComponent);
     
-    // 串行请求，每个请求间隔 100-200ms（随机），避免触发 LOFTER 速率限制
+    // 小批量并发请求（每批 3 个），批间间隔 150ms
+    const BATCH_SIZE = 3;
     const results: TagAlias[] = [];
-    for (let i = 0; i < tags.length; i++) {
-      const tag = tags[i];
-      const result = await fetchLofterTag(tag);
-      results.push(result);
+    
+    for (let i = 0; i < tags.length; i += BATCH_SIZE) {
+      const batch = tags.slice(i, i + BATCH_SIZE);
       
-      // 请求间隔 100-200ms（随机），最后一个标签不需要延迟
-      if (i < tags.length - 1) {
-        const randomDelay = 100 + Math.random() * 100;
-        await delay(randomDelay);
+      // 并发请求当前批次
+      const batchResults = await Promise.all(batch.map(tag => fetchLofterTag(tag)));
+      results.push(...batchResults);
+      
+      // 批间间隔 150ms，最后一批不需要延迟
+      if (i + BATCH_SIZE < tags.length) {
+        await delay(150);
       }
     }
 
