@@ -208,7 +208,7 @@ export function CPRankingClient() {
           return {
             id: row.id as string,
             displayName: row.display_name as string,
-            isCombination: (row.is_combination as boolean) ?? false,
+            isCombination: Boolean(row.is_combination),
             groups: rawGroups.map((g: Record<string, unknown>) => ({
               id: (g.id as string) || generateId(),
               name: (g.name as string) || '',
