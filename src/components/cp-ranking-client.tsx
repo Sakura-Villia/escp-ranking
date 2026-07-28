@@ -344,11 +344,12 @@ export function CPRankingClient() {
         ...g,
         aliases: g.aliases.map((a) => {
           const fresh = tagMap.get(a.tag);
-          // 如果 fresh 存在且没有错误，使用新数据
-          if (fresh && !fresh.error && fresh.joinedNum >= 0) {
+          // 只有当 fresh 存在、没有错误、且 joinedNum > 0 时才使用新数据
+          // 避免 LOFTER 临时返回 0 覆盖数据库里的正确数据
+          if (fresh && !fresh.error && fresh.joinedNum > 0) {
             return fresh;
           }
-          // 保留旧数据，但更新时间戳
+          // 保留旧数据（包括 joinedNum=0 的情况），但更新时间戳
           return { ...a, lastUpdated: new Date().toISOString() };
         }),
       }));
