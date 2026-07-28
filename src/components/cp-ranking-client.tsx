@@ -377,25 +377,38 @@ export function CPRankingClient() {
     }, 60000);
     
     try {
-      // 使用 Promise.allSettled 确保单个 CP 刷新失败不影响其他 CP
-      const settled = await Promise.allSettled(cps.map(refreshOneCP));
-      const updated = settled.map((s, i) => 
-        s.status === 'fulfilled' ? s.value : cps[i]
-      );
+      // 串行处理每个 CP，避免并发请求触发 LOFTER 速率限制
+      const updated: CPItem[] = [];
+      let successCount = 0;
+      let failedCount = 0;
+      
+      for (let i = 0; i < cps.length; i++) {
+        try {
+          const refreshed = await refreshOneCP(cps[i]);
+          updated.push(refreshed);
+          
+          // 立即保存到数据库
+          const saveResult = await saveToDatabase(refreshed, 'PUT');
+          if (saveResult.success) {
+            successCount++;
+          } else {
+            failedCount++;
+            console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+          }
+        } catch (err) {
+          console.error(`Failed to refresh CP "${cps[i].displayName}":`, err);
+          updated.push(cps[i]); // 保留旧数据
+          failedCount++;
+        }
+        
+        // CP 之间间隔 500ms，进一步降低并发压力
+        if (i < cps.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+      }
+      
       updated.sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
       setCps(updated);
-      // Save all updated CPs to database with error handling
-      const saveResults = await Promise.all(
-        updated.map(async (cp) => {
-          const result = await saveToDatabase(cp, 'PUT');
-          if (!result.success) {
-            console.error(`Failed to save CP "${cp.displayName}":`, result.error);
-          }
-          return result;
-        })
-      );
-      const failedCount = saveResults.filter((r) => !r.success).length;
-      const successCount = saveResults.length - failedCount;
       setRefreshStatus({ success: successCount, failed: failedCount, lastTime: new Date().toLocaleTimeString() });
     } catch (err) {
       console.error('Refresh all failed:', err);
