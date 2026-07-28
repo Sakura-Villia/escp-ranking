@@ -303,6 +303,10 @@ export function CPRankingClient() {
       const allTags = cp.groups.flatMap((g) => g.aliases.map((a) => a.tag));
       const uniqueTags = [...new Set(allTags)];
       const results = await refreshTags(uniqueTags);
+      
+      // 调试日志
+      console.log('[refreshOneCP] CP:', cp.displayName, 'tags:', uniqueTags, 'results:', results);
+      
       const tagMap = new Map<string, TagAlias>();
       results.forEach((r) => tagMap.set(r.tag, r));
 
@@ -310,7 +314,12 @@ export function CPRankingClient() {
         ...g,
         aliases: g.aliases.map((a) => {
           const fresh = tagMap.get(a.tag);
-          return fresh && !fresh.error ? fresh : a;
+          // 如果 fresh 存在且没有错误，使用新数据；否则保留旧数据
+          if (fresh && !fresh.error) {
+            return fresh;
+          }
+          // 保留旧数据，但更新时间戳
+          return { ...a, lastUpdated: Date.now() };
         }),
       }));
 
