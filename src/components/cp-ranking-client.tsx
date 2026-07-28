@@ -349,10 +349,25 @@ export function CPRankingClient() {
           if (fresh && !fresh.error && fresh.joinedNum > 0) {
             return fresh;
           }
-          // 保留旧数据（包括 joinedNum=0 的情况），但更新时间戳
-          return { ...a, lastUpdated: new Date().toISOString() };
+          // 完全保留旧数据（包括 lastUpdated），不更新时间戳
+          // 这样下次刷新时会重新尝试获取这个标签
+          return a;
         }),
       }));
+
+      // 检查是否有任何标签获取到了新数据
+      const hasNewData = updatedGroups.some((g) =>
+        g.aliases.some((a, idx) => {
+          const oldAlias = cp.groups.find((og) => og.id === g.id)?.aliases[idx];
+          return oldAlias && a.joinedNum !== oldAlias.joinedNum;
+        })
+      );
+
+      // 只有获取到新数据时才返回更新后的 CP，否则返回原始 CP（不保存）
+      if (!hasNewData) {
+        console.log('[刷新] 未获取到新数据，跳过保存:', cp.displayName);
+        return cp;
+      }
 
       return {
         ...cp,
