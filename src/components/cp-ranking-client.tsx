@@ -415,20 +415,28 @@ export function CPRankingClient() {
                 })
               );
               
-              // 只有有新数据时才保存
+              // 只有有新数据时才保存（带重试机制）
               if (hasNewData) {
-                const saveResult = await saveToDatabase(refreshed, 'PUT');
+                let saveResult = await saveToDatabase(refreshed, 'PUT');
+                
+                // 如果保存失败，重试一次
+                if (!saveResult.success) {
+                  console.warn(`[刷新] 首次保存失败，重试 CP "${refreshed.displayName}"`);
+                  await new Promise(resolve => setTimeout(resolve, 500));
+                  saveResult = await saveToDatabase(refreshed, 'PUT');
+                }
+                
                 if (saveResult.success) {
                   return { cp: refreshed, success: true };
                 } else {
-                  console.error(`Failed to save CP "${refreshed.displayName}":`, saveResult.error);
+                  console.error(`[刷新] 保存失败 CP "${refreshed.displayName}":`, saveResult.error);
                   return { cp: refreshed, success: false };
                 }
               } else {
                 return { cp: refreshed, success: true }; // 没有新数据也算成功
               }
             } catch (err) {
-              console.error(`Failed to refresh CP "${cp.displayName}":`, err);
+              console.error(`[刷新] 刷新失败 CP "${cp.displayName}":`, err);
               return { cp, success: false };
             }
           })
@@ -453,8 +461,14 @@ export function CPRankingClient() {
       updated.sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
       setCps(updated);
       setRefreshStatus({ success: successCount, failed: failedCount, lastTime: new Date().toLocaleTimeString() });
+      
+      // 刷新完成后校验数据完整性
+      console.log(`[刷新] 完成：成功 ${successCount} 个，失败 ${failedCount} 个，总计 ${cps.length} 个`);
+      if (failedCount > 0) {
+        console.warn(`[刷新] 有 ${failedCount} 个 CP 刷新失败，建议稍后重试`);
+      }
     } catch (err) {
-      console.error('Refresh all failed:', err);
+      console.error('[刷新] 刷新全部失败:', err);
       setRefreshStatus({ success: 0, failed: cps.length, lastTime: new Date().toLocaleTimeString() });
     } finally {
       clearTimeout(globalTimeout);
