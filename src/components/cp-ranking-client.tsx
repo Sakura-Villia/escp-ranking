@@ -284,16 +284,31 @@ export function CPRankingClient() {
     }
   }, []);
 
-  // 批量获取tag数据
+  // 批量获取tag数据（带10秒超时）
   const refreshTags = useCallback(
     async (tags: string[]): Promise<TagAlias[]> => {
       if (tags.length === 0) return [];
       const query = tags.map(encodeURIComponent).join(',');
-      const res = await fetch(`/api/refresh?tags=${query}`);
-      if (!res.ok) throw new Error('Failed to fetch');
-      const json: ApiResponse = await res.json();
-      if (!json.success) throw new Error(json.error || 'API error');
-      return json.data;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
+      
+      try {
+        const res = await fetch(`/api/refresh?tags=${query}`, {
+          signal: controller.signal
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json: ApiResponse = await res.json();
+        if (!json.success) throw new Error(json.error || 'API error');
+        return json.data;
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          throw new Error('请求超时（10秒）');
+        }
+        throw err;
+      } finally {
+        clearTimeout(timeoutId);
+      }
     },
     []
   );
@@ -341,11 +356,19 @@ export function CPRankingClient() {
     [refreshTags]
   );
 
-  // 刷新全部
+  // 刷新全部（带60秒全局超时）
   const handleRefreshAll = useCallback(async () => {
     if (cps.length === 0) return;
     setLoading(true);
     setRefreshStatus(null);
+    
+    // 60秒全局超时，强制清除loading状态
+    const globalTimeout = setTimeout(() => {
+      console.error('[refresh] 全局超时（60秒），强制清除loading状态');
+      setLoading(false);
+      setRefreshStatus({ success: 0, failed: cps.length, lastTime: new Date().toLocaleTimeString() });
+    }, 60000);
+    
     try {
       // 使用 Promise.allSettled 确保单个 CP 刷新失败不影响其他 CP
       const settled = await Promise.allSettled(cps.map(refreshOneCP));
@@ -371,6 +394,7 @@ export function CPRankingClient() {
       console.error('Refresh all failed:', err);
       setRefreshStatus({ success: 0, failed: cps.length, lastTime: new Date().toLocaleTimeString() });
     } finally {
+      clearTimeout(globalTimeout);
       setLoading(false);
     }
   }, [cps, refreshOneCP, saveToDatabase]);
@@ -717,18 +741,31 @@ export function CPRankingClient() {
               </h1>
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleRefreshAll}
-                disabled={loading || cps.length === 0}
-                className="border-purple-200 text-purple-600 hover:bg-purple-50 rounded-full"
-              >
-                <RefreshCw
-                  className={`w-4 h-4 mr-1 ${loading ? 'animate-spin' : ''}`}
-                />
-                刷新
-              </Button>
+              {loading ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setLoading(false);
+                    setRefreshStatus({ success: 0, failed: 0, lastTime: new Date().toLocaleTimeString() + ' (已取消)' });
+                  }}
+                  className="border-red-200 text-red-600 hover:bg-red-50 rounded-full"
+                >
+                  <X className="w-4 h-4 mr-1" />
+                  取消
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRefreshAll}
+                  disabled={cps.length === 0}
+                  className="border-purple-200 text-purple-600 hover:bg-purple-50 rounded-full"
+                >
+                  <RefreshCw className="w-4 h-4 mr-1" />
+                  刷新
+                </Button>
+              )}
               {refreshStatus && (
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   refreshStatus.failed === 0 
