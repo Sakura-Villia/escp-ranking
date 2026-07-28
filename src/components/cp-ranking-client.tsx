@@ -296,7 +296,7 @@ export function CPRankingClient() {
       const query = tags.map(encodeURIComponent).join(',');
       
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
       
       try {
         const res = await fetch(`/api/refresh?tags=${query}`, {
@@ -384,12 +384,12 @@ export function CPRankingClient() {
     setLoading(true);
     setRefreshStatus(null);
     
-    // 60秒全局超时，强制清除loading状态
+    // 90秒全局超时，强制清除loading状态
     const globalTimeout = setTimeout(() => {
-      console.error('[refresh] 全局超时（60秒），强制清除loading状态');
+      console.error('[refresh] 全局超时（90秒），强制清除loading状态');
       setLoading(false);
       setRefreshStatus({ success: 0, failed: cps.length, lastTime: new Date().toLocaleTimeString() });
-    }, 60000);
+    }, 90000);
     
     try {
       // 串行处理每个 CP，避免并发请求触发 LOFTER 速率限制
