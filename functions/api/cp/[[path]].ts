@@ -14,16 +14,9 @@ export async function onRequestOptions() {
 export async function onRequestGet(context: any) {
   try {
     const db = context.env.DB;
-    const { data, error } = await db.prepare('SELECT * FROM cp_items ORDER BY total_joined_num DESC').all();
+    const result = await db.prepare('SELECT * FROM cp_items ORDER BY total_joined_num DESC').all();
     
-    if (error) {
-      return new Response(JSON.stringify({ success: false, error: error.message }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
-    }
-    
-    return new Response(JSON.stringify({ success: true, data: data.results || [] }), {
+    return new Response(JSON.stringify({ success: true, data: result.results || [] }), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error: any) {
