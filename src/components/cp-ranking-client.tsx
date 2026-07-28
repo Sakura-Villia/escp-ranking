@@ -250,7 +250,8 @@ export function CPRankingClient() {
       const result = await res.json();
       if (result.success) {
         if (method === 'POST') {
-          setCps(prev => [...prev, { ...cpItem, id: result.data.id }]);
+          // Update the temp ID with the real ID from database
+          setCps(prev => prev.map(cp => cp.id === cpItem.id ? { ...cp, id: result.data.id } : cp));
         } else {
           setCps(prev => prev.map(cp => cp.id === cpItem.id ? cpItem : cp));
         }
