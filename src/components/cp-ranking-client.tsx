@@ -1394,7 +1394,7 @@ function AddCPForm({
             标签别名
           </label>
           <p className="text-xs text-muted-foreground mb-2">
-            添加该CP的所有标签名或LOFTER链接，参与量会自动求和
+            添加该CP的所有标签名或LOFTER链接，参与量取最高的一项
           </p>
           <div className="space-y-1.5">
             {tags.map((tag, ti) => (
