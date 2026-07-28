@@ -325,7 +325,7 @@ export function CPRankingClient() {
       
       // 调试日志 - 显示每个tag的joinedNum
       const resultSummary = results.map(r => `${r.tag}:${r.joinedNum}${r.error ? '(错误:'+r.error+')' : ''}`).join(', ');
-      console.log('[refreshOneCP] CP:', cp.displayName, '→', resultSummary);
+      console.log('[API 返回]', cp.displayName, '→', resultSummary);
       
       // 构建 tag -> result 的映射
       const tagMap = new Map<string, TagAlias>();
