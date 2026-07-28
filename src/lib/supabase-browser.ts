@@ -1,28 +1,17 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// 浏览器端 Supabase 客户端
-// 使用 NEXT_PUBLIC_ 前缀的环境变量，这样浏览器才能访问
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+// Supabase 连接配置
+// 注意：Supabase anon key 是设计为公开使用的，前端直接使用是安全的
+const SUPABASE_URL = 'https://icgrxptmrfcczqdfjrn.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_KloAvScMIzUe8Yc76ouqQw_N_5mC-Zl';
 
-// 创建客户端（即使环境变量未设置也创建，避免构建失败）
-export const supabase: SupabaseClient = supabaseUrl && supabaseAnonKey
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-      },
-    })
-  : createClient('https://placeholder.supabase.co', 'placeholder-key', {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-      },
-    });
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase environment variables are not set. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
-}
+// 创建浏览器端 Supabase 客户端
+export const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+  },
+});
 
 // 数据库表名
 export const CP_TABLE = 'cp_items';
