@@ -14,6 +14,10 @@ interface TagAlias {
   error?: string;
 }
 
+async function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
   try {
     const url = `https://www.lofter.com/tag/${encodeURIComponent(tag)}`;
@@ -28,8 +32,10 @@ async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
 
     if (!res.ok) {
       // 如果是 5xx 错误且还有重试次数，等待后重试
-      if (res.status >= 500 && retryCount < 2) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+      if (res.status >= 500 && retryCount < 3) {
+        const backoff = Math.pow(2, retryCount) * 2000 + Math.random() * 1000;
+        console.log(`[Refresh] Retry ${retryCount + 1}/3 for tag "${tag}" after ${Math.round(backoff)}ms (HTTP ${res.status})`);
+        await delay(backoff);
         return fetchLofterTag(tag, retryCount + 1);
       }
       return {
@@ -57,8 +63,10 @@ async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
     };
   } catch (error: any) {
     // 网络错误也重试
-    if (retryCount < 2) {
-      await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+    if (retryCount < 3) {
+      const backoff = Math.pow(2, retryCount) * 2000 + Math.random() * 1000;
+      console.log(`[Refresh] Retry ${retryCount + 1}/3 for tag "${tag}" after ${Math.round(backoff)}ms (network error)`);
+      await delay(backoff);
       return fetchLofterTag(tag, retryCount + 1);
     }
     return {
@@ -88,14 +96,17 @@ export async function onRequestGet(context: any) {
 
     const tags = tagsParam.split(',').map(decodeURIComponent);
     
-    // 串行请求，每个请求间隔 500ms，避免触发 LOFTER 速率限制
+    // 串行请求，每个请求间隔 1-2 秒（随机），避免触发 LOFTER 速率限制
     const results: TagAlias[] = [];
-    for (const tag of tags) {
+    for (let i = 0; i < tags.length; i++) {
+      const tag = tags[i];
       const result = await fetchLofterTag(tag);
       results.push(result);
-      // 请求间隔 500ms
-      if (tags.indexOf(tag) < tags.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // 请求间隔 1-2 秒（随机），最后一个标签不需要延迟
+      if (i < tags.length - 1) {
+        const randomDelay = 1000 + Math.random() * 1000;
+        await delay(randomDelay);
       }
     }
 
