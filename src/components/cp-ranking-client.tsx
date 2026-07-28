@@ -323,8 +323,9 @@ export function CPRankingClient() {
       
       const results = await refreshTags(uniqueTags);
       
-      // 调试日志
-      console.log('[refreshOneCP] CP:', cp.displayName, 'tags:', uniqueTags, 'results:', results);
+      // 调试日志 - 显示每个tag的joinedNum
+      const resultSummary = results.map(r => `${r.tag}:${r.joinedNum}${r.error ? '(错误:'+r.error+')' : ''}`).join(', ');
+      console.log('[refreshOneCP] CP:', cp.displayName, '→', resultSummary);
       
       // 构建 tag -> result 的映射
       const tagMap = new Map<string, TagAlias>();
