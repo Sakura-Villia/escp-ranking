@@ -236,8 +236,6 @@ export function CPRankingClient() {
       setLoading(false);
     }
   }, [migrateFromLocalStorage]);
-    }
-  }, [migrateFromLocalStorage]);
 
   const saveToDatabase = useCallback(async (cpItem: CPItem, method: 'POST' | 'PUT' = 'POST') => {
     try {
