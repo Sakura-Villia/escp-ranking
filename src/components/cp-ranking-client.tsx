@@ -167,9 +167,17 @@ export function CPRankingClient() {
       if (oldCps.length === 0) return;
 
       // Check if database already has data (avoid duplicate migration)
-      const res = await fetch('/api/cp');
-      const result = await res.json();
-      if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+      const { data: existingData, error: checkError } = await supabase
+        .from('cp_items')
+        .select('id')
+        .limit(1);
+      
+      if (checkError) {
+        console.error('Check database error:', checkError);
+        return;
+      }
+      
+      if (existingData && existingData.length > 0) {
         // Database already has data, skip migration
         localStorage.removeItem('cp-ranking-data');
         return;
@@ -177,16 +185,14 @@ export function CPRankingClient() {
 
       // Import old data into database
       for (const cp of oldCps) {
-        await fetch('/api/cp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+        await supabase
+          .from('cp_items')
+          .insert([{
             display_name: cp.displayName,
             is_combination: cp.isCombination ?? false,
             groups: cp.groups,
             total_joined_num: cp.totalJoinedNum,
-          }),
-        });
+          }]);
       }
       // Clear old localStorage data after successful migration
       localStorage.removeItem('cp-ranking-data');
