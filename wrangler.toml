@@ -1,0 +1,7 @@
+name = "escp-ranking"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "escp-db"
+database_id = "0fc32638-c0f5-4d1d-abda-aea3362e1681"

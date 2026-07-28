@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '@/lib/supabase-browser';
 import {
   CPItem,
   TagAlias,
@@ -168,17 +167,9 @@ export function CPRankingClient() {
       if (oldCps.length === 0) return;
 
       // Check if database already has data (avoid duplicate migration)
-      const { data: existingData, error: checkError } = await supabase
-        .from('cp_items')
-        .select('id')
-        .limit(1);
-      
-      if (checkError) {
-        console.error('Check database error:', checkError);
-        return;
-      }
-      
-      if (existingData && existingData.length > 0) {
+      const res = await fetch('/api/cp');
+      const result = await res.json();
+      if (result.success && Array.isArray(result.data) && result.data.length > 0) {
         // Database already has data, skip migration
         localStorage.removeItem('cp-ranking-data');
         return;
@@ -186,14 +177,16 @@ export function CPRankingClient() {
 
       // Import old data into database
       for (const cp of oldCps) {
-        await supabase
-          .from('cp_items')
-          .insert([{
+        await fetch('/api/cp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             display_name: cp.displayName,
             is_combination: cp.isCombination ?? false,
             groups: cp.groups,
             total_joined_num: cp.totalJoinedNum,
-          }]);
+          }),
+        });
       }
       // Clear old localStorage data after successful migration
       localStorage.removeItem('cp-ranking-data');
@@ -207,28 +200,17 @@ export function CPRankingClient() {
       setLoading(true);
       // First try to migrate from localStorage
       await migrateFromLocalStorage();
-      // Then load from database directly
-      const { data, error } = await supabase
-        .from('cp_items')
-        .select('*')
-        .order('total_joined_num', { ascending: false });
-      
-      if (error) {
-        console.error('Failed to load data:', error);
-        setDbStatus('failed');
-        return;
-      }
-      
-      setDbStatus('connected');
-      
-      if (data && Array.isArray(data)) {
-        const migrated = data.map((row: Record<string, unknown>) => {
-          const rawGroups = (row.groups as Array<Record<string, unknown>>) || [];
+      // Then load from database via API
+      const res = await fetch('/api/cp');
+      const result = await res.json();
+      if (result.success && Array.isArray(result.data)) {
+        const migrated = result.data.map((row: Record<string, unknown>) => {
+          const rawGroups = JSON.parse((row.groups as string) || '[]');
           return {
             id: row.id as string,
             displayName: row.display_name as string,
             isCombination: (row.is_combination as boolean) ?? false,
-            groups: rawGroups.map((g) => ({
+            groups: rawGroups.map((g: Record<string, unknown>) => ({
               id: (g.id as string) || generateId(),
               name: (g.name as string) || '',
               aliases: ((g.aliases as Array<Record<string, unknown>>) || []).map((a) => ({
@@ -243,6 +225,9 @@ export function CPRankingClient() {
           } as CPItem;
         });
         setCps(migrated);
+        setDbStatus('connected');
+      } else {
+        setDbStatus('failed');
       }
     } catch (err) {
       console.error('Load error:', err);
@@ -251,41 +236,35 @@ export function CPRankingClient() {
       setLoading(false);
     }
   }, [migrateFromLocalStorage]);
+    }
+  }, [migrateFromLocalStorage]);
 
   const saveToDatabase = useCallback(async (cpItem: CPItem, method: 'POST' | 'PUT' = 'POST') => {
     try {
       const payload = {
+        id: cpItem.id,
         display_name: cpItem.displayName,
         is_combination: cpItem.isCombination,
         groups: cpItem.groups,
         total_joined_num: cpItem.totalJoinedNum,
       };
-
-      if (method === 'POST') {
-        const { data, error } = await supabase
-          .from('cp_items')
-          .insert([payload])
-          .select()
-          .single();
-        
-        if (error) {
-          console.error('Save error:', error);
-          return { success: false, error: error.message };
+      const url = method === 'POST' ? '/api/cp' : `/api/cp/${cpItem.id}`;
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (result.success) {
+        if (method === 'POST') {
+          setCps(prev => [...prev, { ...cpItem, id: result.data.id }]);
+        } else {
+          setCps(prev => prev.map(cp => cp.id === cpItem.id ? cpItem : cp));
         }
-        setCps(prev => [...prev, { ...cpItem, id: data.id }]);
-        return { success: true, data };
+        return { success: true, data: result.data };
       } else {
-        const { error } = await supabase
-          .from('cp_items')
-          .update(payload)
-          .eq('id', cpItem.id);
-        
-        if (error) {
-          console.error('Update error:', error);
-          return { success: false, error: error.message };
-        }
-        setCps(prev => prev.map(cp => cp.id === cpItem.id ? cpItem : cp));
-        return { success: true };
+        console.error('Save failed:', result.error);
+        return { success: false, error: result.error };
       }
     } catch (err) {
       console.error('Save error:', err);
@@ -295,17 +274,15 @@ export function CPRankingClient() {
 
   const deleteFromDatabase = useCallback(async (id: string) => {
     try {
-      const { error } = await supabase
-        .from('cp_items')
-        .delete()
-        .eq('id', id);
-      
-      if (error) {
-        console.error('Delete error:', error);
-        return { success: false, error: error.message };
+      const res = await fetch(`/api/cp/${id}`, { method: 'DELETE' });
+      const result = await res.json();
+      if (result.success) {
+        setCps(prev => prev.filter(cp => cp.id !== id));
+        return { success: true };
+      } else {
+        console.error('Delete failed:', result.error);
+        return { success: false, error: result.error };
       }
-      setCps(prev => prev.filter(cp => cp.id !== id));
-      return { success: true };
     } catch (err) {
       console.error('Delete error:', err);
       return { success: false, error: String(err) };
