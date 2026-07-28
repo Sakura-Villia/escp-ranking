@@ -123,6 +123,7 @@ export function CPRankingClient() {
   const [loading, setLoading] = useState(false);
   const [refreshingCpId, setRefreshingCpId] = useState<string | null>(null);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [dbStatus, setDbStatus] = useState<'checking' | 'connected' | 'failed'>('checking');
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [expandedCps, setExpandedCps] = useState<Set<string>>(new Set());
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
@@ -214,8 +215,11 @@ export function CPRankingClient() {
       
       if (error) {
         console.error('Failed to load data:', error);
+        setDbStatus('failed');
         return;
       }
+      
+      setDbStatus('connected');
       
       if (data && Array.isArray(data)) {
         const migrated = data.map((row: Record<string, unknown>) => {
@@ -242,6 +246,7 @@ export function CPRankingClient() {
       }
     } catch (err) {
       console.error('Load error:', err);
+      setDbStatus('failed');
     } finally {
       setLoading(false);
     }
@@ -699,6 +704,25 @@ export function CPRankingClient() {
               </h1>
             </div>
             <div className="flex items-center gap-2">
+              {/* Database status indicator */}
+              {dbStatus === 'checking' && (
+                <span className="text-xs text-gray-400 flex items-center gap-1">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  连接中...
+                </span>
+              )}
+              {dbStatus === 'connected' && (
+                <span className="text-xs text-green-500 flex items-center gap-1">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  数据库已连接
+                </span>
+              )}
+              {dbStatus === 'failed' && (
+                <span className="text-xs text-red-500 flex items-center gap-1">
+                  <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                  数据库连接失败
+                </span>
+              )}
               <Button
                 variant="outline"
                 size="sm"
@@ -797,6 +821,18 @@ export function CPRankingClient() {
 
       {/* Main */}
       <main className="max-w-3xl mx-auto px-4 py-6">
+        {/* Database connection warning */}
+        {dbStatus === 'failed' && (
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+            <p className="font-semibold mb-1">⚠️ 数据库连接失败</p>
+            <p>数据无法保存到云端。请检查 Cloudflare Pages 环境变量配置：</p>
+            <ul className="list-disc list-inside mt-1 text-xs">
+              <li>NEXT_PUBLIC_SUPABASE_URL</li>
+              <li>NEXT_PUBLIC_SUPABASE_ANON_KEY</li>
+            </ul>
+            <p className="mt-1 text-xs">确保这两个变量在 Production 和 Preview 环境都已配置。</p>
+          </div>
+        )}
         {/* 搜索栏 */}
         {cps.length > 0 && (
           <div className="mb-4 relative">
