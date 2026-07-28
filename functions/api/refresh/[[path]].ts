@@ -14,7 +14,7 @@ interface TagAlias {
   error?: string;
 }
 
-async function fetchLofterTag(tag: string): Promise<TagAlias> {
+async function fetchLofterTag(tag: string, retryCount = 0): Promise<TagAlias> {
   try {
     const url = `https://www.lofter.com/tag/${encodeURIComponent(tag)}`;
     const res = await fetch(url, {
@@ -27,6 +27,11 @@ async function fetchLofterTag(tag: string): Promise<TagAlias> {
     });
 
     if (!res.ok) {
+      // 如果是 5xx 错误且还有重试次数，等待后重试
+      if (res.status >= 500 && retryCount < 2) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+        return fetchLofterTag(tag, retryCount + 1);
+      }
       return {
         tag,
         joinedNum: 0,
@@ -51,6 +56,11 @@ async function fetchLofterTag(tag: string): Promise<TagAlias> {
       lastUpdated: new Date().toISOString(),
     };
   } catch (error: any) {
+    // 网络错误也重试
+    if (retryCount < 2) {
+      await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+      return fetchLofterTag(tag, retryCount + 1);
+    }
     return {
       tag,
       joinedNum: 0,
@@ -77,7 +87,17 @@ export async function onRequestGet(context: any) {
     }
 
     const tags = tagsParam.split(',').map(decodeURIComponent);
-    const results = await Promise.all(tags.map(fetchLofterTag));
+    
+    // 串行请求，每个请求间隔 500ms，避免触发 LOFTER 速率限制
+    const results: TagAlias[] = [];
+    for (const tag of tags) {
+      const result = await fetchLofterTag(tag);
+      results.push(result);
+      // 请求间隔 500ms
+      if (tags.indexOf(tag) < tags.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
 
     return new Response(JSON.stringify({ success: true, data: results }), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
