@@ -198,15 +198,17 @@ export function CPRankingClient() {
   const loadFromDatabase = useCallback(async () => {
     try {
       setLoading(true);
+      console.log('[加载] 开始从数据库加载数据...');
       // First try to migrate from localStorage
       await migrateFromLocalStorage();
       // Then load from database via API
       const res = await fetch('/api/cp');
       const result = await res.json();
+      console.log('[加载] API 返回:', result.success, '数据条数:', result.data?.length);
       if (result.success && Array.isArray(result.data)) {
         const migrated = result.data.map((row: Record<string, unknown>) => {
           const rawGroups = JSON.parse((row.groups as string) || '[]');
-          return {
+          const cpItem = {
             id: row.id as string,
             displayName: row.display_name as string,
             isCombination: Boolean(row.is_combination),
@@ -215,16 +217,19 @@ export function CPRankingClient() {
               name: (g.name as string) || '',
               aliases: ((g.aliases as Array<Record<string, unknown>>) || []).map((a) => ({
                 tag: (a.tag as string) || '',
-                joinedNum: (a.joinedNum as number) || 0,
-                tagViewCount: (a.tagViewCount as number) || 0,
+                joinedNum: Number(a.joinedNum) || 0,
+                tagViewCount: Number(a.tagViewCount) || 0,
                 lastUpdated: (a.lastUpdated as string) || '',
                 error: a.error as string | undefined,
               })),
             })),
-            totalJoinedNum: (row.total_joined_num as number) || 0,
+            totalJoinedNum: Number(row.total_joined_num) || 0,
           } as CPItem;
+          console.log('[加载] CP:', cpItem.displayName, 'totalJoinedNum:', cpItem.totalJoinedNum);
+          return cpItem;
         });
         setCps(migrated);
+        console.log('[加载] 完成，共加载', migrated.length, '个CP');
       }
     } catch (err) {
       console.error('Load error:', err);
