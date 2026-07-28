@@ -347,7 +347,11 @@ export function CPRankingClient() {
     setLoading(true);
     setRefreshStatus(null);
     try {
-      const updated = await Promise.all(cps.map(refreshOneCP));
+      // 使用 Promise.allSettled 确保单个 CP 刷新失败不影响其他 CP
+      const settled = await Promise.allSettled(cps.map(refreshOneCP));
+      const updated = settled.map((s, i) => 
+        s.status === 'fulfilled' ? s.value : cps[i]
+      );
       updated.sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
       setCps(updated);
       // Save all updated CPs to database with error handling
@@ -363,9 +367,6 @@ export function CPRankingClient() {
       const failedCount = saveResults.filter((r) => !r.success).length;
       const successCount = saveResults.length - failedCount;
       setRefreshStatus({ success: successCount, failed: failedCount });
-      if (failedCount > 0) {
-        console.warn(`Refresh completed but ${failedCount} CP(s) failed to save to database`);
-      }
       // Auto-clear status after 5 seconds
       setTimeout(() => setRefreshStatus(null), 5000);
     } catch (err) {
