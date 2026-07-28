@@ -132,7 +132,7 @@ export function CPRankingClient() {
   const [highlightedCpId, setHighlightedCpId] = useState<string | null>(null);
   const [addError, setAddError] = useState('');
   const [forceAdd, setForceAdd] = useState(false);
-  const [refreshStatus, setRefreshStatus] = useState<{ success: number; failed: number } | null>(null);
+  const [refreshStatus, setRefreshStatus] = useState<{ success: number; failed: number; lastTime: string } | null>(null);
 
   // ── 添加弹窗状态 ──
   const [newCpName, setNewCpName] = useState('');
@@ -366,13 +366,10 @@ export function CPRankingClient() {
       );
       const failedCount = saveResults.filter((r) => !r.success).length;
       const successCount = saveResults.length - failedCount;
-      setRefreshStatus({ success: successCount, failed: failedCount });
-      // Auto-clear status after 5 seconds
-      setTimeout(() => setRefreshStatus(null), 5000);
+      setRefreshStatus({ success: successCount, failed: failedCount, lastTime: new Date().toLocaleTimeString() });
     } catch (err) {
       console.error('Refresh all failed:', err);
-      setRefreshStatus({ success: 0, failed: cps.length });
-      setTimeout(() => setRefreshStatus(null), 5000);
+      setRefreshStatus({ success: 0, failed: cps.length, lastTime: new Date().toLocaleTimeString() });
     } finally {
       setLoading(false);
     }
@@ -391,11 +388,15 @@ export function CPRankingClient() {
           .sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
         setCps(updatedCps);
         const result = await saveToDatabase(updated, 'PUT');
-        if (!result.success) {
+        if (result.success) {
+          setRefreshStatus({ success: 1, failed: 0, lastTime: new Date().toLocaleTimeString() });
+        } else {
           console.error(`Failed to save refreshed CP "${cp.displayName}":`, result.error);
+          setRefreshStatus({ success: 0, failed: 1, lastTime: new Date().toLocaleTimeString() });
         }
       } catch (err) {
         console.error('Refresh single failed:', err);
+        setRefreshStatus({ success: 0, failed: 1, lastTime: new Date().toLocaleTimeString() });
       } finally {
         setRefreshingCpId(null);
       }
@@ -735,8 +736,8 @@ export function CPRankingClient() {
                     : 'bg-amber-100 text-amber-700'
                 }`}>
                   {refreshStatus.failed === 0 
-                    ? `✓ 已更新 ${refreshStatus.success} 个CP`
-                    : `✓ ${refreshStatus.success} 成功, ✗ ${refreshStatus.failed} 失败`
+                    ? `✓ 已更新 ${refreshStatus.success} 个CP (${refreshStatus.lastTime})`
+                    : `✓ ${refreshStatus.success} 成功, ✗ ${refreshStatus.failed} 失败 (${refreshStatus.lastTime})`
                   }
                 </span>
               )}
