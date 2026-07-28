@@ -132,6 +132,7 @@ export function CPRankingClient() {
   const [highlightedCpId, setHighlightedCpId] = useState<string | null>(null);
   const [addError, setAddError] = useState('');
   const [forceAdd, setForceAdd] = useState(false);
+  const [refreshStatus, setRefreshStatus] = useState<{ success: number; failed: number } | null>(null);
 
   // ── 添加弹窗状态 ──
   const [newCpName, setNewCpName] = useState('');
@@ -302,20 +303,28 @@ export function CPRankingClient() {
     async (cp: CPItem): Promise<CPItem> => {
       const allTags = cp.groups.flatMap((g) => g.aliases.map((a) => a.tag));
       const uniqueTags = [...new Set(allTags)];
+      
+      if (uniqueTags.length === 0) return cp;
+      
       const results = await refreshTags(uniqueTags);
       
       // 调试日志
       console.log('[refreshOneCP] CP:', cp.displayName, 'tags:', uniqueTags, 'results:', results);
       
+      // 构建 tag -> result 的映射
       const tagMap = new Map<string, TagAlias>();
-      results.forEach((r) => tagMap.set(r.tag, r));
+      results.forEach((r) => {
+        if (r && r.tag) {
+          tagMap.set(r.tag, r);
+        }
+      });
 
       const updatedGroups = cp.groups.map((g) => ({
         ...g,
         aliases: g.aliases.map((a) => {
           const fresh = tagMap.get(a.tag);
-          // 如果 fresh 存在且没有错误，使用新数据；否则保留旧数据
-          if (fresh && !fresh.error) {
+          // 如果 fresh 存在且没有错误，使用新数据
+          if (fresh && !fresh.error && fresh.joinedNum >= 0) {
             return fresh;
           }
           // 保留旧数据，但更新时间戳
@@ -336,6 +345,7 @@ export function CPRankingClient() {
   const handleRefreshAll = useCallback(async () => {
     if (cps.length === 0) return;
     setLoading(true);
+    setRefreshStatus(null);
     try {
       const updated = await Promise.all(cps.map(refreshOneCP));
       updated.sort((a, b) => b.totalJoinedNum - a.totalJoinedNum);
@@ -351,11 +361,17 @@ export function CPRankingClient() {
         })
       );
       const failedCount = saveResults.filter((r) => !r.success).length;
+      const successCount = saveResults.length - failedCount;
+      setRefreshStatus({ success: successCount, failed: failedCount });
       if (failedCount > 0) {
         console.warn(`Refresh completed but ${failedCount} CP(s) failed to save to database`);
       }
+      // Auto-clear status after 5 seconds
+      setTimeout(() => setRefreshStatus(null), 5000);
     } catch (err) {
       console.error('Refresh all failed:', err);
+      setRefreshStatus({ success: 0, failed: cps.length });
+      setTimeout(() => setRefreshStatus(null), 5000);
     } finally {
       setLoading(false);
     }
@@ -711,6 +727,18 @@ export function CPRankingClient() {
                 />
                 刷新
               </Button>
+              {refreshStatus && (
+                <span className={`text-xs px-2 py-1 rounded-full ${
+                  refreshStatus.failed === 0 
+                    ? 'bg-green-100 text-green-700' 
+                    : 'bg-amber-100 text-amber-700'
+                }`}>
+                  {refreshStatus.failed === 0 
+                    ? `✓ 已更新 ${refreshStatus.success} 个CP`
+                    : `✓ ${refreshStatus.success} 成功, ✗ ${refreshStatus.failed} 失败`
+                  }
+                </span>
+              )}
               <Dialog
                 open={addDialogOpen}
                 onOpenChange={(open) => {
