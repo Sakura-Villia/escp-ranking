@@ -392,14 +392,45 @@ export function CPRankingClient() {
     }, 90000);
     
     try {
+      // 先从数据库重新加载最新数据，确保同步
+      console.log('[刷新] 从数据库重新加载最新数据...');
+      const res = await fetch('/api/cp');
+      const result = await res.json();
+      let currentCps = cps;
+      if (result.success && Array.isArray(result.data)) {
+        const latestCps = result.data.map((row: Record<string, unknown>) => {
+          const rawGroups = JSON.parse((row.groups as string) || '[]');
+          return {
+            id: row.id as string,
+            displayName: row.display_name as string,
+            isCombination: Boolean(row.is_combination),
+            groups: rawGroups.map((g: Record<string, unknown>) => ({
+              id: (g.id as string) || generateId(),
+              name: (g.name as string) || '',
+              aliases: ((g.aliases as Array<Record<string, unknown>>) || []).map((a) => ({
+                tag: (a.tag as string) || '',
+                joinedNum: Number(a.joinedNum) || 0,
+                tagViewCount: Number(a.tagViewCount) || 0,
+                lastUpdated: (a.lastUpdated as string) || '',
+                error: a.error as string | undefined,
+              })),
+            })),
+            totalJoinedNum: Number(row.total_joined_num) || 0,
+          } as CPItem;
+        });
+        setCps(latestCps);
+        currentCps = latestCps;
+        console.log('[刷新] 已同步数据库，共', latestCps.length, '个 CP');
+      }
+      
       // 小批量并发处理 CP（每批 3 个），批间间隔 100ms
       const BATCH_SIZE = 3;
       const updated: CPItem[] = [];
       let successCount = 0;
       let failedCount = 0;
       
-      for (let i = 0; i < cps.length; i += BATCH_SIZE) {
-        const batch = cps.slice(i, i + BATCH_SIZE);
+      for (let i = 0; i < currentCps.length; i += BATCH_SIZE) {
+        const batch = currentCps.slice(i, i + BATCH_SIZE);
         
         // 并发处理当前批次
         const batchResults = await Promise.all(
@@ -463,7 +494,7 @@ export function CPRankingClient() {
       setRefreshStatus({ success: successCount, failed: failedCount, lastTime: new Date().toLocaleTimeString() });
       
       // 刷新完成后校验数据完整性
-      console.log(`[刷新] 完成：成功 ${successCount} 个，失败 ${failedCount} 个，总计 ${cps.length} 个`);
+      console.log(`[刷新] 完成：成功 ${successCount} 个，失败 ${failedCount} 个，总计 ${currentCps.length} 个`);
       if (failedCount > 0) {
         console.warn(`[刷新] 有 ${failedCount} 个 CP 刷新失败，建议稍后重试`);
       }
